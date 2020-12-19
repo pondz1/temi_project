@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
@@ -15,9 +17,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      // appBar: AppBar(
+      //   title: Text(widget.title),
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -25,45 +27,44 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(icon: Icon(Icons.ac_unit_outlined),iconSize: 160, onPressed: null),
-                IconButton(icon: Icon(Icons.ac_unit_outlined),iconSize: 160, onPressed: null),
-                IconButton(icon: Icon(Icons.ac_unit_outlined),iconSize: 160, onPressed: null),
-                CustomAnimation<double>(
-                  control: CustomAnimationControl.MIRROR,
-                  tween: 100.0.tweenTo(200.0),
-                  duration: 2.seconds,
-                  delay: 1.seconds,
-                  curve: Curves.easeInOut,
-                  child: Center(
-                      child: IconButton(icon: Icon(Icons.ac_unit_outlined),iconSize: 160, onPressed: null)),
-                  startPosition: 0.5,
-                  animationStatusListener: (status) {
-                    print("status updated: $status");
-                  },
-                  builder: (context, child, value) {
-                    return Container(
-                        width: value, height: value, color: Colors.blue, child: child);
-                  },
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                LoopAnimation<double>(
-                  tween: 0.0.tweenTo(10.0),
-                  duration: 2.seconds,
-                  curve: Curves.easeOut,
-                  builder: (context, child, value) {
-                    return Transform.scale(
-                      scale: value,
-                      child: child,
-                    );
-                  },
-                  child: Text("Hello!")
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(120),
+                  child: SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.camera, size: 40,),
+                      label: Text('Camera', style: TextStyle(fontSize: 25),),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(120),
+                  child: SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.videogame_asset_rounded, size: 40,),
+                      label: Text('Game', style: TextStyle(fontSize: 25),),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(120),
+                  child: SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.shopping_bag_rounded, size: 40,),
+                      label: Text('Shop', style: TextStyle(fontSize: 25),),
+                      onPressed: () {},
+                    ),
+                  ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

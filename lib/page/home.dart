@@ -1,8 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations.dart';
-import 'package:supercharged/supercharged.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -20,52 +16,60 @@ class _MyHomePageState extends State<MyHomePage> {
       // appBar: AppBar(
       //   title: Text(widget.title),
       // ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(120),
-                  child: SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: ElevatedButton.icon(
-                      icon: Icon(Icons.camera, size: 40,),
-                      label: Text('Camera', style: TextStyle(fontSize: 25),),
-                      onPressed: () {},
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/red-bg-1.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(120),
+                    child: SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: ElevatedButton.icon(
+                        icon: Icon(Icons.camera, size: 40,),
+                        label: Text('Camera', style: TextStyle(fontSize: 25),),
+                        onPressed: () {},
+                      ),
                     ),
                   ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(120),
-                  child: SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: ElevatedButton.icon(
-                      icon: Icon(Icons.videogame_asset_rounded, size: 40,),
-                      label: Text('Game', style: TextStyle(fontSize: 25),),
-                      onPressed: () {},
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(120),
+                    child: SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: ElevatedButton.icon(
+                        icon: Icon(Icons.videogame_asset_rounded, size: 40,),
+                        label: Text('Game', style: TextStyle(fontSize: 25),),
+                        onPressed: () {},
+                      ),
                     ),
                   ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(120),
-                  child: SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: ElevatedButton.icon(
-                      icon: Icon(Icons.shopping_bag_rounded, size: 40,),
-                      label: Text('Shop', style: TextStyle(fontSize: 25),),
-                      onPressed: () {},
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(120),
+                    child: SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: ElevatedButton.icon(
+                        icon: Icon(Icons.shopping_bag_rounded, size: 40,),
+                        label: Text('Shop', style: TextStyle(fontSize: 25),),
+                        onPressed: () {},
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

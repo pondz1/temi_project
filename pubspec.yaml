@@ -56,6 +56,8 @@ dependencies:
   cloud_functions: ^0.5.0
   supercharged: ^1.12.0
   #flutter_temi: ^0.0.11
+  camera: ^0.6.0
+  video_player: ^1.0.1
 
 dev_dependencies:
   flutter_test:

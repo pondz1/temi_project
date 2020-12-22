@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_temi_project/page/camera.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -18,10 +19,10 @@ class _MyHomePageState extends State<MyHomePage> {
       // ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/red-bg-1.jpg"),
-            fit: BoxFit.cover,
-          ),
+          // image: DecorationImage(
+            // image: AssetImage("assets/images/red-bg-1.jpg"),
+            // fit: BoxFit.cover,
+          // ),
         ),
         child: Center(
           child: Column(
@@ -38,7 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: ElevatedButton.icon(
                         icon: Icon(Icons.camera, size: 40,),
                         label: Text('Camera', style: TextStyle(fontSize: 25),),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CameraExampleHome()));
+                        },
                       ),
                     ),
                   ),

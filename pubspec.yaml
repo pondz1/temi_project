@@ -57,7 +57,10 @@ dependencies:
   supercharged: ^1.12.0
   #flutter_temi: ^0.0.11
   camera: ^0.6.0
+  path_provider:
   video_player: ^1.0.1
+  bordered_text: ^1.0.1
+  path:
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +80,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/red-bg-1.jpg
+    - assets/images/979076.jpg
+    - assets/images/qr.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

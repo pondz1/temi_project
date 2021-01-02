@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_temi_project/page/home/firstPage.dart';
 import 'package:flutter_temi_project/page/home/home.dart';
 
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: FirstPage(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bordered_text/bordered_text.dart';
+import 'package:flutter_temi_project/page/shop/shopResult.dart';
 
 class Shop extends StatefulWidget {
   @override
@@ -16,12 +17,12 @@ class _ShopState extends State<Shop> {
       ),
       body: Container(
         color: Color(0xFF0E3139),
-        child: Column(
+        child: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 100.0, left: 60, right: 60),
+              padding: const EdgeInsets.only(top: 80.0, left: 60, right: 60),
               child: TextField(
                 obscureText: false,
                 style: TextStyle(fontSize: 25),
@@ -35,7 +36,9 @@ class _ShopState extends State<Shop> {
                 ),
                 textInputAction: TextInputAction.search,
                 onSubmitted: (value) {
-                  print("search");
+                  print(value);
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => ShopResult(value: value,)),);
                 },
               ),
             ),

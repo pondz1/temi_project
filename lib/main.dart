@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_temi_project/page/home.dart';
+import 'package:flutter_temi_project/page/home/home.dart';
+
 
 void main() {
   runApp(MyApp());

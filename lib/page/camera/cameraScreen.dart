@@ -58,7 +58,9 @@ class _CameraScreenState extends State<CameraScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _timer.cancel();
+    if (_timer != null){
+      _timer.cancel();
+    }
   }
   @override
   Widget build(BuildContext context) {

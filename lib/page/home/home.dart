@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_temi_project/page/camera.dart';
-import 'package:flutter_temi_project/page/shop.dart';
+import 'package:flutter_temi_project/page/game/game.dart';
+import 'package:flutter_temi_project/page/shop/shop.dart';
 
-import 'camera/cameraPage.dart';
-import 'cemera2.dart';
+import '../camera/cameraPage.dart';
+import '../test/camera2.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -20,11 +20,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   CameraDescription cameraDescription;
+  double size;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initCamera();
+    size = 300.0;
   }
   initCamera() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -50,12 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(120),
+                    borderRadius: BorderRadius.circular(150),
                     child: SizedBox(
-                      width: 200,
-                      height: 200,
+                      width: size,
+                      height: size,
                       child: ElevatedButton.icon(
-                        icon: Icon(Icons.camera, size: 40,),
+                        icon: Icon(Icons.camera, size: 80,),
                         label: Text('Camera', style: TextStyle(fontSize: 25),),
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => CameraPage(),
@@ -68,24 +70,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(120),
+                    borderRadius: BorderRadius.circular(150),
                     child: SizedBox(
-                      width: 200,
-                      height: 200,
+                      width: size,
+                      height: size,
                       child: ElevatedButton.icon(
-                        icon: Icon(Icons.videogame_asset_rounded, size: 40,),
+                        icon: Icon(Icons.videogame_asset_rounded, size: 80,),
                         label: Text('Game', style: TextStyle(fontSize: 25),),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Game()));
+                        },
                       ),
                     ),
                   ),
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(120),
+                    borderRadius: BorderRadius.circular(150),
                     child: SizedBox(
-                      width: 200,
-                      height: 200,
+                      width: size,
+                      height: size,
                       child: ElevatedButton.icon(
-                        icon: Icon(Icons.shopping_bag_rounded, size: 40,),
+                        icon: Icon(Icons.shopping_bag_rounded, size: 80,),
                         label: Text('Shop', style: TextStyle(fontSize: 25),),
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => Shop()));

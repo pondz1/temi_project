@@ -60,7 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.camera, size: 80,),
                         label: Text('Camera', style: TextStyle(fontSize: 25),),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CameraPage(),
+                          Navigator.push(
+                              context, MaterialPageRoute(
+                            builder: (context) =>
+                                CameraPage(),
                               // CameraExampleHome(),
                               // TakePictureScreen(camera: cameraDescription,)
 

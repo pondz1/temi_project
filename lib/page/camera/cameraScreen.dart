@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/camera/cameraPreview.dart';
 
@@ -37,13 +38,12 @@ class _CameraScreenState extends State<CameraScreen> {
         if (_start == 0) {
           setState(() {
             timer.cancel();
-            Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                CameraPreview())
-            ).then((value) => {
-              setState((){
-                countText = "";
-              })
-            });
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CameraPreview()))
+                .then((value) => {
+                      setState(() {
+                        countText = "";
+                      })
+                    });
           });
         } else {
           setState(() {
@@ -54,14 +54,16 @@ class _CameraScreenState extends State<CameraScreen> {
       },
     );
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    if (_timer != null){
+    if (_timer != null) {
       _timer.cancel();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +80,10 @@ class _CameraScreenState extends State<CameraScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
+                  margin: EdgeInsets.only(top: 100, bottom: 30),
                   color: Colors.white,
-                  height: MediaQuery.of(context).size.height - 310,
-                  width: MediaQuery.of(context).size.width - 190,
+                  height: MediaQuery.of(context).size.height - 360,
+                  width: MediaQuery.of(context).size.width - 240,
                 )
               ],
             ),
@@ -89,13 +92,40 @@ class _CameraScreenState extends State<CameraScreen> {
                     countText,
                     style: TextStyle(fontSize: 120, color: Colors.white),
                   )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: example.map((e) {
-                      var index = example.indexOf(e);
-                      return iconFilter(e, index);
-                    }).toList(),
-                  ),
+                : Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: example.map((e) {
+                    var index = example.indexOf(e);
+                    return iconFilter(e, index);
+                  }).toList(),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Ink(
+                      decoration: ShapeDecoration(
+                        color: Colors.pink,
+                        shape: CircleBorder(),
+                      ),
+                      child: IconButton(
+                        color: Colors.white,
+                        disabledColor: Colors.white,
+                        iconSize: 100,
+                        icon: Icon(
+                          Icons.camera,
+                        ),
+                        onPressed: () {
+                          onSelfie();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
           ],
         ),
       ),
@@ -103,8 +133,6 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Widget iconFilter(IconData icon, int index) {
-    var mid = (example.length / 2).floor();
-    var size = index == mid ? 110.0 : 55.0;
     return Ink(
       decoration: ShapeDecoration(
         color: Colors.pink,
@@ -113,7 +141,7 @@ class _CameraScreenState extends State<CameraScreen> {
       child: IconButton(
         color: Colors.white,
         disabledColor: Colors.white,
-        iconSize: size,
+        iconSize: 60,
         icon: Icon(icon),
         onPressed: () {
           onSelfie();

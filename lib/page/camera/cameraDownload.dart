@@ -11,9 +11,9 @@ class _CameraDownloadState extends State<CameraDownload> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent.withOpacity(0.1),
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.transparent.withOpacity(0.1),
+        // ),
         body: Container(
           color: Color(0xFF0E3139),
           child: Column(
@@ -30,6 +30,7 @@ class _CameraDownloadState extends State<CameraDownload> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   // Group: Group 9
                   Container(
@@ -64,8 +65,29 @@ class _CameraDownloadState extends State<CameraDownload> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: SizedBox(
+                        width: 200,
+                        height: 130,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) => Game()));
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "OK",
+                            style: TextStyle(fontSize: 50),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ));

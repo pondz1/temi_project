@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "132569391734",
+    "project_id": "temi-668a9",
+    "storage_bucket": "temi-668a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132569391734:android:58dd3fd950e6597f10b557",
+        "android_client_info": {
+          "package_name": "com.example.flutter_temi_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132569391734-g7c6cekroit1hp6bgdhdk4ks7t944a6v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_temi_project",
+            "certificate_hash": "827ce417e8f21b7684b22091742e4b2a8f39b60d"
+          }
+        },
+        {
+          "client_id": "132569391734-eb7b2tb14ih0ve4d93dgep021g09eke1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwWdveBI0kJOeBLZG4sx32Dt5SRr3JYaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132569391734-eb7b2tb14ih0ve4d93dgep021g09eke1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

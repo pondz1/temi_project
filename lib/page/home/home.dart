@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/game/game.dart';
 import 'package:flutter_temi_project/page/shop/shop.dart';
+import 'package:flutter_temi_project/page/shop/userView.dart';
 
 import '../camera/cameraPage.dart';
 import '../test/camera2.dart';
@@ -95,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.shopping_bag_rounded, size: 80,),
                         label: Text('Shops', style: TextStyle(fontSize: 25),),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Shop()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => UserView()));
                         },
                       ),
                     ),

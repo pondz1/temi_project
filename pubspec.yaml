@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_rating_bar: ^1.1.0
   provider: ^3.0.0+1
-  cloud_firestore: ^0.12.9+4
+  cloud_firestore:
   cached_network_image: 2.0.0-rc
   flutter_spinkit: ^4.0.0
   currencies: ^0.1.1
@@ -42,18 +42,18 @@ dependencies:
   extended_nested_scroll_view: ^0.4.0
   grouped_list: ^2.3.0
   fluttertoast: ^4.0.0
-  firebase_analytics: ^5.0.2
-  firebase_auth: ^0.14.0+5
+#  firebase_analytics:
+#  firebase_auth:
   simple_animations: ^2.4.2
   grouped_buttons: ^1.0.4
-  firebase_messaging: ^6.0.13
+#  firebase_messaging:
   google_maps_flutter: ^0.5.21
   location: ^2.3.5
   geolocator: ^5.3.1
   google_maps_webservice: ^0.0.16
   flutter_google_places: ^0.2.5
   flutter_ringtone_player: ^2.0.0
-  cloud_functions: ^0.5.0
+#  cloud_functions:
   supercharged: ^1.12.0
   #flutter_temi: ^0.0.11
   camera: ^0.6.0
@@ -61,6 +61,7 @@ dependencies:
   video_player: ^1.0.1
   bordered_text: ^1.0.1
   path:
+  firebase_core: ^0.5.3
 
 dev_dependencies:
   flutter_test:

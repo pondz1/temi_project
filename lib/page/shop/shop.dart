@@ -85,7 +85,8 @@ class _ShopState extends State<Shop> {
                 Image.asset("assets/images/shop2.jpg", height: 260,),
                 Image.asset("assets/images/shop3.jpg", height: 260,),
               ],
-            )
+            ),
+
           ],
         ),
       ),

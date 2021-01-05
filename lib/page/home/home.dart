@@ -63,8 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                               context, MaterialPageRoute(
                             builder: (context) =>
-                                CameraPage(),
-                              // CameraExampleHome(),
+                                // CameraPage(),
+                              CameraExampleHome(),
                               // TakePictureScreen(camera: cameraDescription,)
 
                               ));
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: size,
                       child: ElevatedButton.icon(
                         icon: Icon(Icons.videogame_asset_rounded, size: 80,),
-                        label: Text('Game', style: TextStyle(fontSize: 25),),
+                        label: Text('Games', style: TextStyle(fontSize: 25),),
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => Game()));
                         },
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: size,
                       child: ElevatedButton.icon(
                         icon: Icon(Icons.shopping_bag_rounded, size: 80,),
-                        label: Text('Shop', style: TextStyle(fontSize: 25),),
+                        label: Text('Shops', style: TextStyle(fontSize: 25),),
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => Shop()));
                         },

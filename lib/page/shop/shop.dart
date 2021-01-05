@@ -22,7 +22,25 @@ class _ShopState extends State<Shop> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 80.0, left: 60, right: 60),
+              padding: const EdgeInsets.all(30.0),
+              child: BorderedText(
+                //TODO: install bordered_text package
+                strokeWidth: 1,
+                strokeColor: Colors.white,
+                strokeCap: StrokeCap.butt,
+                strokeJoin: StrokeJoin.miter,
+                child: Text(
+                  'ค้นหาสินค้า',
+                  style: TextStyle(
+                    fontFamily: 'JasmineUPC',
+                    fontSize: 25.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0, left: 60, right: 60),
               child: TextField(
                 obscureText: false,
                 style: TextStyle(fontSize: 25),
@@ -43,7 +61,7 @@ class _ShopState extends State<Shop> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(50.0),
+              padding: const EdgeInsets.all(60.0),
               child: BorderedText(
                 //TODO: install bordered_text package
                 strokeWidth: 1,

@@ -2,6 +2,7 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/game/gamePlay1.dart';
 import 'package:flutter_temi_project/page/game/gamePlay2.dart';
+import 'package:flutter_temi_project/page/game/spotTheDifference/spotTheDifference.dart';
 
 class Game extends StatefulWidget {
   @override
@@ -80,7 +81,7 @@ class _GameState extends State<Game> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => GamePlay2(),
+                            builder: (context) => SpotTheDifference(),
                         ),
                     );
                   },

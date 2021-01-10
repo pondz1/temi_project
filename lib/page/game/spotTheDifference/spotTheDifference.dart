@@ -22,22 +22,22 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
   int _numMaxWrong = 3;
 
   List<Offset> _pointL = [
-    Offset(483.8, 444.1),
-    Offset(175.4, 420.2),
-    Offset(422.3, 334.2),
-    Offset(246.4, 313.7),
-    Offset(239.9, 263.3),
-    Offset(169.4, 252.3),
-    Offset(341.8, 104.4)
+    Offset(456.3, 355.1),
+    Offset(211.9, 333.6),
+    Offset(407.3, 266.7),
+    Offset(269.4, 251.2),
+    Offset(263.4, 210.7),
+    Offset(203.9, 201.2),
+    Offset(342.8, 84.3)
   ];
   List<Offset> _pointR = [
-    Offset(964.5, 443.1),
-    Offset(656.2, 419.2),
-    Offset(901.1, 333.2),
-    Offset(726.1, 313.7),
-    Offset(721.6, 261.8),
-    Offset(647.2, 253.3),
-    Offset(819.6, 104.9)
+    Offset(843.1, 354.6),
+    Offset(598.2, 334.6),
+    Offset(793.6, 266.7),
+    Offset(651.7, 250.7),
+    Offset(646.2, 209.7),
+    Offset(589.2, 202.7),
+    Offset(725.6, 83.3)
   ];
 
   @override
@@ -73,7 +73,10 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text("\t Correct : " + _countCorrect.toString() + "\t Wrong : " + _countWrong.toString()),
+        title: Text("\t Correct : " +
+            _countCorrect.toString() +
+            "\t Wrong : " +
+            _countWrong.toString()),
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -111,7 +114,7 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
                     children: [
                       Image.network(
                         "https://i.insider.com/5ef364faaee6a85506725c35?width=1000&format=jpeg&auto=webp",
-                        height: 500,
+                        height: MediaQuery.of(context).size.height - 200,
                       ),
                     ],
                   ),
@@ -155,6 +158,8 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
 
   _onTapUp(TapUpDetails details) {
     print(details.localPosition);
+    // _pointR.add(details.localPosition);
+    // print(_pointR);
     if (_isPoint(details.localPosition)) {
       _countCorrect++;
       print("Correct " + _countCorrect.toString());

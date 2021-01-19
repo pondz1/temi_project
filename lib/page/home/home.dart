@@ -29,12 +29,14 @@ class _MyHomePageState extends State<MyHomePage> {
     initCamera();
     size = 300.0;
   }
+
   initCamera() async {
     WidgetsFlutterBinding.ensureInitialized();
     List<CameraDescription> cameras = await availableCameras();
     log(cameras.toString());
     cameraDescription = cameras.last;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,9 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //   title: Text(widget.title),
       // ),
       body: Container(
-        decoration: BoxDecoration(
-          color: Color(0xFF0E3139)
-        ),
+        decoration: BoxDecoration(color: Color(0xFF0E3139)),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -58,16 +58,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: size,
                       height: size,
                       child: ElevatedButton.icon(
-                        icon: Icon(Icons.camera, size: 80,),
-                        label: Text('Camera', style: TextStyle(fontSize: 25),),
+                        icon: Icon(
+                          Icons.camera,
+                          size: 80,
+                        ),
+                        label: Text(
+                          'Camera',
+                          style: TextStyle(fontSize: 25),
+                        ),
                         onPressed: () {
                           Navigator.push(
-                              context, MaterialPageRoute(
-                            builder: (context) =>
-                                // CameraPage(),
-                              CameraExampleHome(),
-                              // TakePictureScreen(camera: cameraDescription,)
-
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    // CameraPage(),
+                                    CameraExampleHome(),
+                                // TakePictureScreen(camera: cameraDescription,)
                               ));
                         },
                       ),
@@ -79,10 +85,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: size,
                       height: size,
                       child: ElevatedButton.icon(
-                        icon: Icon(Icons.videogame_asset_rounded, size: 80,),
-                        label: Text('Games', style: TextStyle(fontSize: 25),),
+                        icon: Icon(
+                          Icons.videogame_asset_rounded,
+                          size: 80,
+                        ),
+                        label: Text(
+                          'Games',
+                          style: TextStyle(fontSize: 25),
+                        ),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Game()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Game()));
                         },
                       ),
                     ),
@@ -93,10 +106,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: size,
                       height: size,
                       child: ElevatedButton.icon(
-                        icon: Icon(Icons.shopping_bag_rounded, size: 80,),
-                        label: Text('Shops', style: TextStyle(fontSize: 25),),
+                        icon: Icon(
+                          Icons.shopping_bag_rounded,
+                          size: 80,
+                        ),
+                        label: Text(
+                          'Shops',
+                          style: TextStyle(fontSize: 25),
+                        ),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => UserView()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Shop()));
                         },
                       ),
                     ),

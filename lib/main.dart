@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/home/firstPage.dart';
-import 'package:flutter_temi_project/page/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

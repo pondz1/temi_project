@@ -33,14 +33,12 @@ class _CameraPreviewState extends State<CameraPreview> {
             ),
             InkWell(
               onTap: () {
-                //TODO: onTap Group 8
                 print('onTap Group 8');
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    CameraDownload())
-                ).then((value) => {
-                  setState((){
-                  })
-                });
+                Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CameraDownload()))
+                    .then((value) => {setState(() {})});
               },
               child: Container(
                 margin: EdgeInsets.only(top: 20),
@@ -56,7 +54,6 @@ class _CameraPreviewState extends State<CameraPreview> {
                   ),
                 ),
                 child: BorderedText(
-                  //TODO: install bordered_text package
                   strokeWidth: 1,
                   strokeColor: Colors.black,
                   strokeCap: StrokeCap.butt,

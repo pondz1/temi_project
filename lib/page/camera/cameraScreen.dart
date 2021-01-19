@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,6 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -38,7 +36,8 @@ class _CameraScreenState extends State<CameraScreen> {
         if (_start == 0) {
           setState(() {
             timer.cancel();
-            Navigator.push(context, MaterialPageRoute(builder: (context) => CameraPreview()))
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CameraPreview()))
                 .then((value) => {
                       setState(() {
                         countText = "";
@@ -57,7 +56,6 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     if (_timer != null) {
       _timer.cancel();
@@ -93,39 +91,38 @@ class _CameraScreenState extends State<CameraScreen> {
                     style: TextStyle(fontSize: 120, color: Colors.white),
                   )
                 : Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: example.map((e) {
-                    var index = example.indexOf(e);
-                    return iconFilter(e, index);
-                  }).toList(),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Ink(
-                      decoration: ShapeDecoration(
-                        color: Colors.pink,
-                        shape: CircleBorder(),
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: example.map((e) {
+                          var index = example.indexOf(e);
+                          return iconFilter(e, index);
+                        }).toList(),
                       ),
-                      child: IconButton(
-                        color: Colors.white,
-                        disabledColor: Colors.white,
-                        iconSize: 100,
-                        icon: Icon(
-                          Icons.camera,
-                        ),
-                        onPressed: () {
-                          onSelfie();
-                        },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Ink(
+                            decoration: ShapeDecoration(
+                              color: Colors.pink,
+                              shape: CircleBorder(),
+                            ),
+                            child: IconButton(
+                              color: Colors.white,
+                              disabledColor: Colors.white,
+                              iconSize: 100,
+                              icon: Icon(
+                                Icons.camera,
+                              ),
+                              onPressed: () {
+                                onSelfie();
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-
+                    ],
+                  ),
           ],
         ),
       ),

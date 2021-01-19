@@ -30,14 +30,19 @@ class _CameraPageState extends State<CameraPage> {
                 iconSize: 300,
                 icon: Icon(Icons.camera_alt_rounded),
                 onPressed: () {
-                  // TODO
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CameraScreen()));
                 },
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("Selfie",style: TextStyle(fontSize: 130),)],
+              children: [
+                Text(
+                  "Selfie",
+                  style: TextStyle(fontSize: 130),
+                )
+              ],
             ),
           ],
         ),

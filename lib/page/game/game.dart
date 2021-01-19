@@ -33,7 +33,6 @@ class _GameState extends State<Game> {
                         color: Colors.white,
                       ),
                       BorderedText(
-                        //TODO: install bordered_text package
                         strokeWidth: 5,
                         strokeColor: Colors.white,
                         strokeCap: StrokeCap.butt,
@@ -59,17 +58,17 @@ class _GameState extends State<Game> {
                   onTap: () {
                     print("tap");
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GamePlay1(),
-                        ),
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GamePlay1(),
+                      ),
                     );
                   },
                   child: Container(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(60.0),
                       child: Image.asset(
-                          "assets/images/game1.jpg",
+                        "assets/images/game1.jpg",
                         height: 400,
                       ),
                     ),
@@ -79,10 +78,10 @@ class _GameState extends State<Game> {
                   onTap: () {
                     print("tap");
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SpotTheDifference(),
-                        ),
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SpotTheDifference(),
+                      ),
                     );
                   },
                   child: Container(

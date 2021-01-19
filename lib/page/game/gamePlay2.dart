@@ -1,4 +1,3 @@
-import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 
 class GamePlay2 extends StatefulWidget {

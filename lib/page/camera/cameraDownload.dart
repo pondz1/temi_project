@@ -47,7 +47,6 @@ class _CameraDownloadState extends State<CameraDownload> {
                       ),
                     ),
                     child: BorderedText(
-                      //TODO: install bordered_text package
                       strokeWidth: 1,
                       strokeColor: Colors.black.withOpacity(0.7),
                       strokeCap: StrokeCap.butt,

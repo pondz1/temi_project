@@ -28,7 +28,10 @@ class DatabaseService {
     }).toList();
   }
 
-  Stream<List<Goods>> getGoods() {
-    return users.snapshots().map(_getListGoods);
+  Stream<List<Goods>> getGoodsByName(String name) {
+    return goods
+        .where('name', isGreaterThanOrEqualTo: name)
+        .snapshots()
+        .map(_getListGoods);
   }
 }

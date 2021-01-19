@@ -1,5 +1,8 @@
+import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_temi_project/model/Goods.dart';
+import 'package:flutter_temi_project/service/database.dart';
 
 class ShopResult extends StatefulWidget {
   var value;
@@ -47,9 +50,12 @@ class _ShopShopResultState extends State<ShopResult> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("  Result: ${widget.value}", style: TextStyle(
-                      fontSize: 30,
-                    ),),
+                    Text(
+                      "  Result: ${widget.value}",
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -57,9 +63,22 @@ class _ShopShopResultState extends State<ShopResult> {
             Container(
               margin: const EdgeInsets.only(top: 100),
               height: 300.0,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: listResult.map((e) => itemResult(e)).toList(),
+              child: StreamBuilder<List<Goods>>(
+                stream: DatabaseService().getGoodsByName(widget.value),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Goods> goods = snapshot.data;
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: goods.length,
+                        itemBuilder: (context, index) {
+                          return itemResult(
+                              goods[index].name, goods[index].image);
+                        });
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             )
           ],
@@ -67,7 +86,8 @@ class _ShopShopResultState extends State<ShopResult> {
       ),
     );
   }
-  Widget itemResult (String text){
+
+  Widget itemResult(String text, String image) {
     return Container(
       margin: const EdgeInsets.all(10.0),
       width: 300.0,
@@ -83,12 +103,22 @@ class _ShopShopResultState extends State<ShopResult> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset("assets/images/nike.jpg",height: 150,),
+          Container(
+            height: 150,
+            child: Image(
+              image: FirebaseImage('gs://temi-668a9.appspot.com/image/$image'),
+              // height: 150,
+              fit: BoxFit.fitHeight,
+            ),
+          ),
           Wrap(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(text),
+                child: Text(
+                  text,
+                  style: TextStyle(fontSize: 50),
+                ),
               ),
             ],
           )

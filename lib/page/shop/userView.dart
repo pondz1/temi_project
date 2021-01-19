@@ -12,12 +12,12 @@ class _UserViewState extends State<UserView> {
   Widget build(BuildContext context) {
     return StreamBuilder<List<User>>(
       stream: DatabaseService().getUser(),
-      builder: (context, snapshot){
+      builder: (context, snapshot) {
         // print(snapshot.data);
-        if (snapshot.hasData){
+        if (snapshot.hasData) {
           print("xxxxxxxxxxxxxxxxxxxxxxxxxxxx4");
           List<User> user = snapshot.data;
-          for(var i in user){
+          for (var i in user) {
             print(i.name);
             print(i.age);
           }
@@ -25,7 +25,7 @@ class _UserViewState extends State<UserView> {
         } else {
           return Container();
         }
-      } ,
+      },
     );
   }
 }

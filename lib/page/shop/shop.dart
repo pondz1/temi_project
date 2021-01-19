@@ -53,7 +53,6 @@ class _ShopState extends State<Shop> {
                 ),
                 textInputAction: TextInputAction.search,
                 onSubmitted: (value) {
-                  print(value);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -67,7 +66,6 @@ class _ShopState extends State<Shop> {
             Padding(
               padding: const EdgeInsets.all(60.0),
               child: BorderedText(
-                //TODO: install bordered_text package
                 strokeWidth: 1,
                 strokeColor: Colors.white,
                 strokeCap: StrokeCap.butt,

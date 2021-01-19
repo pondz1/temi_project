@@ -24,7 +24,6 @@ class _ShopState extends State<Shop> {
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: BorderedText(
-                //TODO: install bordered_text package
                 strokeWidth: 1,
                 strokeColor: Colors.white,
                 strokeCap: StrokeCap.butt,
@@ -55,8 +54,13 @@ class _ShopState extends State<Shop> {
                 textInputAction: TextInputAction.search,
                 onSubmitted: (value) {
                   print(value);
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ShopResult(value: value,)),);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ShopResult(
+                              value: value,
+                            )),
+                  );
                 },
               ),
             ),
@@ -81,12 +85,20 @@ class _ShopState extends State<Shop> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Image.asset("assets/images/shop1.jpg", height: 260,),
-                Image.asset("assets/images/shop2.jpg", height: 260,),
-                Image.asset("assets/images/shop3.jpg", height: 260,),
+                Image.asset(
+                  "assets/images/shop1.jpg",
+                  height: 260,
+                ),
+                Image.asset(
+                  "assets/images/shop2.jpg",
+                  height: 260,
+                ),
+                Image.asset(
+                  "assets/images/shop3.jpg",
+                  height: 260,
+                ),
               ],
             ),
-
           ],
         ),
       ),

@@ -4,10 +4,9 @@ import 'package:flutter_temi_project/model/Goods.dart';
 import 'package:flutter_temi_project/model/User.dart';
 
 class DatabaseService {
-  final CollectionReference users =
-      FirebaseFirestore.instance.collection('users');
-  final CollectionReference goods =
-      FirebaseFirestore.instance.collection('goods');
+  final CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final CollectionReference goods = FirebaseFirestore.instance.collection('goods');
+
   List<User> _getListUser(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return User(name: doc['name'], age: doc['age']);
@@ -20,18 +19,11 @@ class DatabaseService {
 
   List<Goods> _getListGoods(QuerySnapshot snapshot) {
     return snapshot.docs.map((e) {
-      return Goods(
-          name: e['name'],
-          image: e['image'],
-          price: e['price'],
-          sale: e['sale']);
+      return Goods(name: e['name'], image: e['image'], price: e['price'], sale: e['sale']);
     }).toList();
   }
 
   Stream<List<Goods>> getGoodsByName(String name) {
-    return goods
-        .where('name', isGreaterThanOrEqualTo: name)
-        .snapshots()
-        .map(_getListGoods);
+    return goods.orderBy('name').startAt([name]).endAt([name + '\uf8ff']).snapshots().map(_getListGoods);
   }
 }

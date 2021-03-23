@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_temi_project/model/Goods.dart';
 import 'package:flutter_temi_project/service/database.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:ndialog/ndialog.dart';
 
 class ShopResult extends StatefulWidget {
@@ -64,24 +65,34 @@ class _ShopShopResultState extends State<ShopResult> {
                   if (snapshot.hasData) {
                     List<Goods> goods = snapshot.data;
                     return ListView.builder(
-                      padding: EdgeInsets.only(top: 25, right: 30),
+                        padding: EdgeInsets.only(top: 25, right: 30),
                         scrollDirection: Axis.horizontal,
                         itemCount: goods.length,
                         itemBuilder: (context, index) {
                           print(goods.length);
-                          int price = (goods[index].price != null && goods[index].price != 0 ? goods[index].price : -1);
-                          int sale = (goods[index].sale != null && goods[index].sale != 0  ? goods[index].sale : -1);
+                          int price = (goods[index].price != null &&
+                                  goods[index].price != 0
+                              ? goods[index].price
+                              : -1);
+                          int sale = (goods[index].sale != null &&
+                                  goods[index].sale != 0
+                              ? goods[index].sale
+                              : -1);
                           int total = price - sale;
                           int percent = (total / price * 100).round();
-                          if(percent > 100){ percent = 100;}
+                          if (percent > 100) {
+                            percent = 100;
+                          }
                           if (percent > 0) {
                             return Badge(
                               badgeContent: Text(
                                 '$percent%',
-                                style: GoogleFonts.kanit(fontSize: 25, color: Colors.white),
+                                style: GoogleFonts.kanit(
+                                    fontSize: 25, color: Colors.white),
                               ),
                               padding: EdgeInsets.all(15),
-                              position: BadgePosition.topEnd(top: -20, end: -20),
+                              position:
+                                  BadgePosition.topEnd(top: -20, end: -20),
                               child: itemResult(goods[index]),
                             );
                           } else {
@@ -101,8 +112,9 @@ class _ShopShopResultState extends State<ShopResult> {
   }
 
   Widget itemResult(Goods goods) {
-    String text = (goods.name != null ? goods.name :'-');
-    String image = (goods.image != null ? goods.image :'-');
+    var f = NumberFormat("###,###", "en_US");
+    String text = (goods.name != null ? goods.name : '-');
+    String image = (goods.image != null ? goods.image : '-');
     int price = (goods.price != null ? goods.price : 0);
     int sale = (goods.sale != null ? goods.sale : 0);
     int total = price - sale;
@@ -150,7 +162,8 @@ class _ShopShopResultState extends State<ShopResult> {
             Container(
               height: 150,
               child: Image(
-                image: FirebaseImage('gs://temi-668a9.appspot.com/image/$image'),
+                image:
+                    FirebaseImage('gs://temi-668a9.appspot.com/image/$image'),
                 height: 150,
                 fit: BoxFit.cover,
               ),
@@ -175,7 +188,7 @@ class _ShopShopResultState extends State<ShopResult> {
                           ? Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: Text(
-                                '\฿' + price.toString(),
+                                '\฿' + f.format(price).toString(),
                                 style: GoogleFonts.kanit(
                                   fontSize: 20,
                                   color: Colors.grey,
@@ -187,7 +200,7 @@ class _ShopShopResultState extends State<ShopResult> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: Text(
-                          '\฿' + sale.toString(),
+                          '\฿' + f.format(sale).toString(),
                           style: GoogleFonts.kanit(
                             fontSize: 25,
                             color: Colors.red,

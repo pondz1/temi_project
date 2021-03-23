@@ -21,17 +21,33 @@ class DatabaseService {
 
   List<Goods> _getListGoods(QuerySnapshot snapshot) {
     return snapshot.docs.map((e) {
-      return Goods(name: e['name'], image: e['image'], price: e['price'], sale: e['sale']);
+      return Goods(
+          name: e['name'],
+          image: e['image'],
+          price: e['price'],
+          sale: e['sale'],
+          detail: e['detail'],
+          location: e['location'],
+          storeName: e['storeName']);
     }).toList();
   }
 
   Stream<List<Goods>> getGoodsByName(String name) {
-    return goods.orderBy('name').startAt([name]).endAt([name + '\uf8ff']).snapshots().map(_getListGoods);
+    return goods
+        .orderBy('name')
+        .startAt([name])
+        .endAt([name + '\uf8ff'])
+        .snapshots()
+        .map(_getListGoods);
   }
 
   List<BannerShop> _getListBanner(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return BannerShop(filename: doc['filename']);
+      return BannerShop(
+          filename: doc['filename'],
+          detail: doc['detail'],
+          location: doc['location'],
+          storeName: doc['storeName']);
     }).toList();
   }
 

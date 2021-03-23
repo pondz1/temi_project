@@ -101,6 +101,18 @@ class _ShopShopResultState extends State<ShopResult> {
     int price = goods.price;
     int sale = goods.sale;
     int total = price - sale;
+    String location = goods.location;
+    String detail = goods.detail;
+    String storeName = goods.storeName;
+    String nadText = "สินค้า : $text" +
+        "\n" +
+        "ราคา : $sale" +
+        "\n" +
+        "ชื่อร้าน : $storeName" +
+        "\n" +
+        "ตำแหน่ง : $location" +
+        "\n" +
+        "เพิ่มเติม : $detail";
     return InkWell(
       onTap: () {
         NAlertDialog(
@@ -109,11 +121,11 @@ class _ShopShopResultState extends State<ShopResult> {
             style: GoogleFonts.kanit(fontSize: 25),
           ),
           content: Text(
-            "test",
+            nadText,
             style: GoogleFonts.kanit(fontSize: 20),
           ),
           blur: 2,
-        ).show(context, transitionType: DialogTransitionType.Bubble);
+        ).show(context, transitionType: DialogTransitionType.Shrink);
       },
       child: Container(
         margin: const EdgeInsets.only(left: 30.0),
@@ -141,9 +153,9 @@ class _ShopShopResultState extends State<ShopResult> {
             Wrap(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 8),
+                  padding: const EdgeInsets.only(left: 20.0, top: 8, right: 20),
                   child: Text(
-                    text,
+                    (text.length > 18) ? text.substring(0, 18) + '...' : text,
                     style: GoogleFonts.kanit(fontSize: 20),
                   ),
                 ),

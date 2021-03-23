@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_temi_project/model/Goods.dart';
 import 'package:flutter_temi_project/service/database.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ShopResult extends StatefulWidget {
   var value;
@@ -12,16 +13,6 @@ class ShopResult extends StatefulWidget {
 }
 
 class _ShopShopResultState extends State<ShopResult> {
-  var listResult = [
-    "NIKE-WMNS ZOOM FLY 3 WOMEN",
-    "NIKE-WMNS ZOOM FLY 3 WOMEN",
-    "NIKE-WMNS ZOOM FLY 3 WOMEN",
-    "NIKE-WMNS ZOOM FLY 3 WOMEN",
-    "NIKE-WMNS ZOOM FLY 3 WOMEN",
-    "NIKE-WMNS ZOOM FLY 3 WOMEN",
-    "NIKE-WMNS ZOOM FLY 3 WOMEN",
-    "NIKE-WMNS ZOOM FLY 3 WOMENWOMENWOMENWOMENWOMENWOMEN"
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +43,7 @@ class _ShopShopResultState extends State<ShopResult> {
                   children: [
                     Text(
                       "  Result: ${widget.value}",
-                      style: TextStyle(
+                      style: GoogleFonts.kanit(
                         fontSize: 30,
                       ),
                     ),
@@ -62,7 +53,7 @@ class _ShopShopResultState extends State<ShopResult> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 100),
-              height: 300.0,
+              height: 280.0,
               child: StreamBuilder<List<Goods>>(
                 stream: DatabaseService().getGoodsByName(widget.value),
                 builder: (context, snapshot) {
@@ -89,9 +80,9 @@ class _ShopShopResultState extends State<ShopResult> {
 
   Widget itemResult(String text, String image) {
     return Container(
-      margin: const EdgeInsets.all(10.0),
-      width: 300.0,
-      height: 300.0,
+      margin: const EdgeInsets.only( left: 30.0),
+      width: 280.0,
+      // height: 250.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.0),
         color: Colors.white,
@@ -107,8 +98,8 @@ class _ShopShopResultState extends State<ShopResult> {
             height: 150,
             child: Image(
               image: FirebaseImage('gs://temi-668a9.appspot.com/image/$image'),
-              // height: 150,
-              fit: BoxFit.fitHeight,
+              height: 150,
+              fit: BoxFit.cover,
             ),
           ),
           Wrap(
@@ -117,7 +108,7 @@ class _ShopShopResultState extends State<ShopResult> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   text,
-                  style: TextStyle(fontSize: 50),
+                  style: GoogleFonts.kanit(fontSize: 30),
                 ),
               ),
             ],

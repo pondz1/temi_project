@@ -1,11 +1,13 @@
 // Import the firebase_core and cloud_firestore plugin
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_temi_project/model/Banner.dart';
 import 'package:flutter_temi_project/model/Goods.dart';
 import 'package:flutter_temi_project/model/User.dart';
 
 class DatabaseService {
   final CollectionReference users = FirebaseFirestore.instance.collection('users');
   final CollectionReference goods = FirebaseFirestore.instance.collection('goods');
+  final CollectionReference banner = FirebaseFirestore.instance.collection('banner');
 
   List<User> _getListUser(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -25,5 +27,15 @@ class DatabaseService {
 
   Stream<List<Goods>> getGoodsByName(String name) {
     return goods.orderBy('name').startAt([name]).endAt([name + '\uf8ff']).snapshots().map(_getListGoods);
+  }
+
+  List<BannerShop> _getListBanner(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return BannerShop(filename: doc['filename']);
+    }).toList();
+  }
+
+  Stream<List<BannerShop>> getBanner() {
+    return banner.snapshots().map(_getListBanner);
   }
 }

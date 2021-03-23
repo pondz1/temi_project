@@ -1,6 +1,10 @@
+import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter_temi_project/page/shop/shopResult.dart';
+import 'package:flutter_temi_project/service/database.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_temi_project/model/Banner.dart';
 
 class Shop extends StatefulWidget {
   @override
@@ -8,6 +12,8 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
+  var _textEdit = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +36,7 @@ class _ShopState extends State<Shop> {
                 strokeJoin: StrokeJoin.miter,
                 child: Text(
                   'ค้นหาสินค้า',
-                  style: TextStyle(
-                    fontFamily: 'JasmineUPC',
+                  style: GoogleFonts.kanit(
                     fontSize: 25.0,
                     color: Colors.white,
                   ),
@@ -41,6 +46,7 @@ class _ShopState extends State<Shop> {
             Padding(
               padding: const EdgeInsets.only(top: 10.0, left: 60, right: 60),
               child: TextField(
+                controller: _textEdit,
                 obscureText: false,
                 style: TextStyle(fontSize: 25),
                 decoration: InputDecoration(
@@ -59,7 +65,7 @@ class _ShopState extends State<Shop> {
                         builder: (context) => ShopResult(
                               value: value,
                             )),
-                  );
+                  ).then((value) => {_textEdit.text = ''});
                 },
               ),
             ),
@@ -72,30 +78,37 @@ class _ShopState extends State<Shop> {
                 strokeJoin: StrokeJoin.miter,
                 child: Text(
                   'Promotions ',
-                  style: TextStyle(
-                    fontFamily: 'JasmineUPC',
+                  style: GoogleFonts.kanit(
                     fontSize: 25.0,
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Image.asset(
-                  "assets/images/shop1.jpg",
-                  height: 260,
-                ),
-                Image.asset(
-                  "assets/images/shop2.jpg",
-                  height: 260,
-                ),
-                Image.asset(
-                  "assets/images/shop3.jpg",
-                  height: 260,
-                ),
-              ],
+            Container(
+              margin: const EdgeInsets.only(top: 1),
+              height: 280.0,
+              child: StreamBuilder<List<BannerShop>>(
+                stream: DatabaseService().getBanner(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<BannerShop> banner = snapshot.data;
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: banner.map((e) {
+                          print(e.filename);
+                          return Image(
+                            image: FirebaseImage('gs://temi-668a9.appspot.com/banner/${e.filename}'),
+                            // height: 260,
+                            fit: BoxFit.cover,
+                          );
+                        }).toList()
+                        );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
             ),
           ],
         ),

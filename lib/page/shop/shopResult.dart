@@ -64,11 +64,16 @@ class _ShopShopResultState extends State<ShopResult> {
                   if (snapshot.hasData) {
                     List<Goods> goods = snapshot.data;
                     return ListView.builder(
+                      padding: EdgeInsets.only(top: 25, right: 30),
                         scrollDirection: Axis.horizontal,
                         itemCount: goods.length,
                         itemBuilder: (context, index) {
-                          int sale = goods[index].price - goods[index].sale;
-                          int percent = (sale / goods[index].price * 100).round();
+                          print(goods.length);
+                          int price = (goods[index].price != null && goods[index].price != 0 ? goods[index].price : -1);
+                          int sale = (goods[index].sale != null && goods[index].sale != 0  ? goods[index].sale : -1);
+                          int total = price - sale;
+                          int percent = (total / price * 100).round();
+                          if(percent > 100){ percent = 100;}
                           if (percent > 0) {
                             return Badge(
                               badgeContent: Text(
@@ -76,7 +81,7 @@ class _ShopShopResultState extends State<ShopResult> {
                                 style: GoogleFonts.kanit(fontSize: 25, color: Colors.white),
                               ),
                               padding: EdgeInsets.all(15),
-                              position: BadgePosition.topEnd(top: -20, end: -25),
+                              position: BadgePosition.topEnd(top: -20, end: -20),
                               child: itemResult(goods[index]),
                             );
                           } else {
@@ -96,14 +101,14 @@ class _ShopShopResultState extends State<ShopResult> {
   }
 
   Widget itemResult(Goods goods) {
-    String text = goods.name;
-    String image = goods.image;
-    int price = goods.price;
-    int sale = goods.sale;
+    String text = (goods.name != null ? goods.name :'-');
+    String image = (goods.image != null ? goods.image :'-');
+    int price = (goods.price != null ? goods.price : 0);
+    int sale = (goods.sale != null ? goods.sale : 0);
     int total = price - sale;
-    String location = goods.location;
-    String detail = goods.detail;
-    String storeName = goods.storeName;
+    String location = (goods.location != null ? goods.location : '-');
+    String detail = (goods.detail != null ? goods.detail : '-');
+    String storeName = (goods.storeName != null ? goods.storeName : '-');
     String nadText = "สินค้า : $text" +
         "\n" +
         "ราคา : $sale" +

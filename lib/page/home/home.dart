@@ -1,12 +1,11 @@
 import 'dart:developer';
 
-import 'package:bordered_text/bordered_text.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/game/game.dart';
 import 'package:flutter_temi_project/page/shop/shop.dart';
-import 'package:flutter_temi_project/page/shop/userView.dart';
 
+// ignore: unused_import
 import '../camera/cameraPage.dart';
 import '../test/camera2.dart';
 
@@ -24,7 +23,6 @@ class _MyHomePageState extends State<MyHomePage> {
   double size;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initCamera();
     size = 300.0;

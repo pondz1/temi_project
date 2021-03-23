@@ -5,7 +5,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +109,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
               ),
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Row(
@@ -155,8 +153,8 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
           icon: const Icon(Icons.camera_alt),
           color: Colors.blue,
           onPressed: controller != null &&
-              controller.value.isInitialized &&
-              !controller.value.isRecordingVideo
+                  controller.value.isInitialized &&
+                  !controller.value.isRecordingVideo
               ? onTakePictureButtonPressed
               : null,
         ),

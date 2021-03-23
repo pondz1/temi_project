@@ -12,6 +12,7 @@ class SpotTheDifference extends StatefulWidget {
 class _SpotTheDifferenceState extends State<SpotTheDifference> {
   // answer
   // https://i.insider.com/5ef36eaff34d050a883d5ad5?width=700&format=jpeg&auto=webp
+  // ignore: unused_field
   Timer _timer;
   int _start = 0;
   int _stop = 60; // time play (sec)
@@ -42,7 +43,6 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     startTimer();
   }
@@ -163,14 +163,14 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
     if (_isPoint(details.localPosition)) {
       _countCorrect++;
       print("Correct " + _countCorrect.toString());
-    }else{
+    } else {
       _countWrong++;
       print("Wrong " + _countWrong.toString());
     }
     if (_countCorrect == _numMaxCorrect) {
       print("Win");
     }
-    if(_countWrong == _numMaxWrong){
+    if (_countWrong == _numMaxWrong) {
       print("Lose");
     }
     setState(() {});

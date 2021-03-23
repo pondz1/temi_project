@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:ndialog/ndialog.dart';
 
 class ShopResult extends StatefulWidget {
-  var value;
+  final value;
 
   ShopResult({Key key, this.value}) : super(key: key);
 
@@ -79,7 +79,7 @@ class _ShopShopResultState extends State<ShopResult> {
                               ? goods[index].sale
                               : -1);
                           int total = price - sale;
-                          int percent = (total / price * 100).round();
+                          int percent = (total / price * 100).floor();
                           if (percent > 100) {
                             percent = 100;
                           }

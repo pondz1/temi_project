@@ -19,7 +19,6 @@ class FirstPage extends StatelessWidget {
             children: <Widget>[
               Spacer(flex: 302),
               BorderedText(
-                //TODO: install bordered_text package
                 strokeWidth: 1,
                 strokeColor: const Color(0xFF131C53),
                 strokeCap: StrokeCap.butt,
@@ -46,12 +45,12 @@ class FirstPage extends StatelessWidget {
               Spacer(flex: 208),
               InkWell(
                 onTap: () {
-                  //TODO: onTap Group 1
                   print('onTap Group 1');
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MyHomePage(title: 'Flutter Demo Home Page'),
+                      builder: (context) =>
+                          MyHomePage(title: 'Flutter Demo Home Page'),
                     ),
                   );
                 },
@@ -70,7 +69,6 @@ class FirstPage extends StatelessWidget {
                     ),
                   ),
                   child: BorderedText(
-                    //TODO: install bordered_text package
                     strokeWidth: 1,
                     strokeColor: Colors.black,
                     strokeCap: StrokeCap.butt,

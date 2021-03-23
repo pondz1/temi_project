@@ -5,9 +5,12 @@ import 'package:flutter_temi_project/model/Goods.dart';
 import 'package:flutter_temi_project/model/User.dart';
 
 class DatabaseService {
-  final CollectionReference users = FirebaseFirestore.instance.collection('users');
-  final CollectionReference goods = FirebaseFirestore.instance.collection('goods');
-  final CollectionReference banner = FirebaseFirestore.instance.collection('banner');
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
+  final CollectionReference goods =
+      FirebaseFirestore.instance.collection('goods');
+  final CollectionReference banner =
+      FirebaseFirestore.instance.collection('banner');
 
   List<User> _getListUser(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -35,8 +38,8 @@ class DatabaseService {
   Stream<List<Goods>> getGoodsByName(String name) {
     return goods
         .orderBy('name')
-        .startAt([name])
-        .endAt([name + '\uf8ff'])
+        .startAt([name.toLowerCase()])
+        .endAt([name.toLowerCase() + '\uf8ff'])
         .snapshots()
         .map(_getListGoods);
   }

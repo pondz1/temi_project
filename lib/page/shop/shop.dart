@@ -5,6 +5,7 @@ import 'package:flutter_temi_project/page/shop/shopResult.dart';
 import 'package:flutter_temi_project/service/database.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_temi_project/model/Banner.dart';
+import 'package:ndialog/ndialog.dart';
 
 class Shop extends StatefulWidget {
   @override
@@ -96,11 +97,19 @@ class _ShopState extends State<Shop> {
                     return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: banner.map((e) {
-                          print(e.filename);
-                          return Image(
-                            image: FirebaseImage('gs://temi-668a9.appspot.com/banner/${e.filename}'),
-                            // height: 260,
-                            fit: BoxFit.cover,
+                          return InkWell(
+                            onTap: () {
+                              NAlertDialog(
+                                title: Text("รายละเอียด",style: GoogleFonts.kanit(fontSize: 25),),
+                                content: Text(e.filename,style: GoogleFonts.kanit(fontSize: 20),),
+                                blur: 2,
+                              ).show(context, transitionType: DialogTransitionType.Bubble);
+                            },
+                            child: Image(
+                              image: FirebaseImage('gs://temi-668a9.appspot.com/banner/${e.filename}'),
+                              // height: 260,
+                              fit: BoxFit.cover,
+                            ),
                           );
                         }).toList()
                         );

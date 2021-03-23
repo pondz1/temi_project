@@ -66,6 +66,7 @@ dependencies:
   firebase_image: ^1.0.1
   firebase_storage: ^8.0.0
   ndialog: ^4.0.1
+  badges: ^1.2.0
 
 dev_dependencies:
   flutter_test:

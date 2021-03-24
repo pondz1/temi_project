@@ -41,21 +41,16 @@ dependencies:
   google_fonts: ^2.0.0
   extended_nested_scroll_view: ^3.0.0
   grouped_list: ^3.7.1
-#  fluttertoast: ^8.0.3
-#  firebase_analytics:
   firebase_auth: ^1.0.1
   simple_animations: ^3.0.3
   grouped_buttons: ^1.0.4
-#  firebase_messaging:
   google_maps_flutter: ^2.0.1
   location: ^4.1.1
   geolocator: ^7.0.1
   google_maps_webservice: ^0.0.16
   flutter_google_places: ^0.2.5
   flutter_ringtone_player: ^2.0.0
-#  cloud_functions:
   supercharged: ^2.0.0
-  #flutter_temi: ^0.0.11
   camera: ^0.8.0
   path_provider: ^2.0.1
   video_player: ^2.0.2
@@ -67,6 +62,7 @@ dependencies:
   firebase_storage: ^8.0.0
   ndialog: ^4.0.1
   badges: ^1.2.0
+  # flutter_temi: ^0.0.13
 
 dev_dependencies:
   flutter_test:

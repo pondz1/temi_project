@@ -45,7 +45,6 @@ class FirstPage extends StatelessWidget {
               Spacer(flex: 208),
               InkWell(
                 onTap: () {
-                  print('onTap Group 1');
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

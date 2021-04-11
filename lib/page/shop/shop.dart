@@ -94,34 +94,46 @@ class _ShopState extends State<Shop> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<BannerShop> banner = snapshot.data;
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: banner.map((e) {
-                          String location = e.location;
-                          String detail = e.detail;
-                          String storeName = e.storeName;
-                          String nadText =
-                              "ชื่อร้าน : $storeName" +
-                              "\n" +
-                              "ตำแหน่ง : $location" +
-                              "\n" +
-                              "เพิ่มเติม : $detail";
-                          return InkWell(
-                            onTap: () {
-                              NAlertDialog(
-                                title: Text("รายละเอียด",style: GoogleFonts.kanit(fontSize: 25),),
-                                content: Text(nadText,style: GoogleFonts.kanit(fontSize: 20),),
-                                blur: 2,
-                              ).show(context, transitionType: DialogTransitionType.Shrink);
-                            },
-                            child: Image(
-                              image: FirebaseImage('gs://temi-668a9.appspot.com/banner/${e.filename}'),
-                              // height: 260,
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        }).toList()
-                        );
+                    return Center(
+                      child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          children: banner.map((e) {
+                            String location = e.location;
+                            String detail = e.detail;
+                            String storeName = e.storeName;
+                            String nadText = "ชื่อร้าน : $storeName" +
+                                "\n" +
+                                "ตำแหน่ง : $location" +
+                                "\n" +
+                                "เพิ่มเติม : $detail";
+                            return Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: InkWell(
+                                onTap: () {
+                                  NAlertDialog(
+                                    title: Text(
+                                      "รายละเอียด",
+                                      style: GoogleFonts.kanit(fontSize: 25),
+                                    ),
+                                    content: Text(
+                                      nadText,
+                                      style: GoogleFonts.kanit(fontSize: 20),
+                                    ),
+                                    blur: 2,
+                                  ).show(context,
+                                      transitionType:
+                                          DialogTransitionType.Shrink);
+                                },
+                                child: Image(
+                                  image: FirebaseImage(
+                                      'gs://temi-668a9.appspot.com/banner/${e.filename}'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          }).toList()),
+                    );
                   } else {
                     return Container();
                   }

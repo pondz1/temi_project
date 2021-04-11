@@ -111,6 +111,7 @@ class _ShopState extends State<Shop> {
                               padding: const EdgeInsets.all(20.0),
                               child: InkWell(
                                 onTap: () {
+                                  DatabaseService().updateBanner(e);
                                   NAlertDialog(
                                     title: Text(
                                       "รายละเอียด",

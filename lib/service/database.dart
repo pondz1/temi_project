@@ -50,11 +50,26 @@ class DatabaseService {
           filename: doc['filename'],
           detail: doc['detail'],
           location: doc['location'],
-          storeName: doc['storeName']);
+          storeName: doc['storeName'],
+          click: doc['click'],
+          id: doc.id);
     }).toList();
   }
 
   Stream<List<BannerShop>> getBanner() {
-    return banner.snapshots().map(_getListBanner);
+    return banner
+        .orderBy('click', descending: true)
+        .snapshots()
+        .map(_getListBanner);
+  }
+
+  updateBanner(value) {
+    banner.doc(value.id).set({
+      'filename': value.filename,
+      'detail': value.detail,
+      'location': value.location,
+      'storeName': value.storeName,
+      'click': value.click + 1,
+    });
   }
 }

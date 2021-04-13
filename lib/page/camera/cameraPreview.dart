@@ -2,10 +2,13 @@ import 'dart:io';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/camera/cameraDownload.dart';
+import 'package:flutter_temi_project/service/database.dart';
 
 class CameraPreviewImage extends StatefulWidget {
   final String imagePath;
-  CameraPreviewImage({Key key, this.imagePath}) : super(key: key);
+  final String imageName;
+  CameraPreviewImage({Key key, this.imagePath, this.imageName})
+      : super(key: key);
   @override
   _CameraPreviewState createState() => _CameraPreviewState();
 }
@@ -52,13 +55,17 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
               ],
             ),
             InkWell(
-              onTap: () {
-                print('onTap Group 8');
+              onTap: () async {
+                // print('onTap Group 8');
+                await DatabaseService()
+                    .uploadFile(widget.imagePath, widget.imageName);
+                var url = await DatabaseService().downloadURL(widget.imageName);
                 Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CameraDownload()))
-                    .then((value) => {setState(() {})});
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CameraDownload(
+                              imageURL: url,
+                            ))).then((value) => {setState(() {})});
               },
               child: Container(
                 margin: EdgeInsets.only(top: 20),

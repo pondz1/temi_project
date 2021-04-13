@@ -1,5 +1,8 @@
 // Import the firebase_core and cloud_firestore plugin
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_temi_project/model/Banner.dart';
 import 'package:flutter_temi_project/model/Goods.dart';
 import 'package:flutter_temi_project/model/User.dart';
@@ -71,5 +74,24 @@ class DatabaseService {
       'storeName': value.storeName,
       'click': value.click + 1,
     });
+  }
+
+  Future<void> uploadFile(String filePath, String imageName) async {
+    File file = File(filePath);
+
+    try {
+      await FirebaseStorage.instance.ref('picture/$imageName').putFile(file);
+    } on FirebaseException catch (e) {
+      // e.g, e.code == 'canceled'
+    }
+  }
+
+  Future<String> downloadURL(String imageName) async {
+    String downloadURL = await FirebaseStorage.instance
+        .ref('picture/$imageName')
+        .getDownloadURL();
+    return downloadURL;
+    // Within your widgets:
+    // Image.network(downloadURL);
   }
 }

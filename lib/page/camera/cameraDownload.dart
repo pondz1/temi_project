@@ -1,12 +1,21 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class CameraDownload extends StatefulWidget {
+  final String imageURL;
+  CameraDownload({Key key, this.imageURL}) : super(key: key);
   @override
   _CameraDownloadState createState() => _CameraDownloadState();
 }
 
 class _CameraDownloadState extends State<CameraDownload> {
+  @override
+  void initState() {
+    super.initState();
+    print(widget.imageURL);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +31,16 @@ class _CameraDownloadState extends State<CameraDownload> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    "assets/images/qr.png",
-                    height: 360,
+                  // Image.asset(
+                  //   "assets/images/qr.png",
+                  //   height: 360,
+                  // )
+                  QrImage(
+                    data: widget.imageURL,
+                    version: QrVersions.auto,
+                    size: 320,
+                    gapless: false,
+                    backgroundColor: Colors.white,
                   )
                 ],
               ),

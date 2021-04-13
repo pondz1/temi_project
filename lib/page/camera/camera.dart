@@ -41,6 +41,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 MaterialPageRoute(
                   builder: (context) => CameraPreviewImage(
                     imagePath: image.path,
+                    imageName: image.name,
                   ),
                 )).then((value) => {
                   setState(() {

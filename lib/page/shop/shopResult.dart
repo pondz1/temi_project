@@ -21,16 +21,30 @@ class _ShopShopResultState extends State<ShopResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent.withOpacity(0.1),
-      ),
+      // extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent.withOpacity(0.1),
+      // ),
       body: Container(
         color: Color(0xFF0E3139),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 40.0, left: 20),
+              child: Row(
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      iconSize: 40,
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      })
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 40.0, left: 60, right: 60),
               child: Container(

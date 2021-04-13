@@ -67,55 +67,100 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Row(
-                    children: [
-                      IconButton(icon: Icon(Icons.arrow_back), onPressed: () {})
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 650,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: AspectRatio(
-                        aspectRatio: _controller.value.aspectRatio,
-                        child: CameraPreview(_controller),
-                      ),
+            return Container(
+              decoration: BoxDecoration(color: Color(0xFF0E3139)),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40.0, left: 20),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            icon: Icon(Icons.arrow_back),
+                            iconSize: 40,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            })
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 180,
+                      ),
+                      Container(
+                        height: 650,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(right: 34.0, bottom: 20),
+                          child: AspectRatio(
+                            aspectRatio: _controller.value.aspectRatio,
+                            child: CameraPreview(_controller),
+                          ),
+                        ),
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(120),
+                        child: SizedBox(
+                            width: 150,
+                            height: 150,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                try {
+                                  await _initializeControllerFuture;
+                                  final image = await _controller.takePicture();
+                                  print(image.path);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DisplayPictureScreen(
+                                        imagePath: image?.path,
+                                      ),
+                                    ),
+                                  );
+                                } catch (e) {
+                                  print(e);
+                                }
+                              },
+                              child: Icon(
+                                Icons.camera,
+                                size: 100,
+                              ),
+                            )),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             );
           } else {
             return Center(child: CircularProgressIndicator());
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_alt),
-        onPressed: () async {
-          try {
-            await _initializeControllerFuture;
-            final image = await _controller.takePicture();
-            print(image.path);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                  imagePath: image?.path,
-                ),
-              ),
-            );
-          } catch (e) {
-            print(e);
-          }
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.camera_alt),
+      //   onPressed: () async {
+      //     try {
+      //       await _initializeControllerFuture;
+      //       final image = await _controller.takePicture();
+      //       print(image.path);
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //           builder: (context) => DisplayPictureScreen(
+      //             imagePath: image?.path,
+      //           ),
+      //         ),
+      //       );
+      //     } catch (e) {
+      //       print(e);
+      //     }
+      //   },
+      // ),
     );
   }
 }

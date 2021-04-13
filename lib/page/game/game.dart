@@ -13,16 +13,31 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent.withOpacity(0.1),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent.withOpacity(0.1),
+      // ),
       body: Container(
         color: Color(0xFF0E3139),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 60.0, left: 20),
+              padding: const EdgeInsets.only(top: 40.0, left: 20),
               child: Row(
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      iconSize: 40,
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      })
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 1.0, left: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
                     children: [

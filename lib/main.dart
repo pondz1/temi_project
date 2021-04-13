@@ -5,8 +5,8 @@ import 'package:flutter_temi_project/page/home/firstPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   await Firebase.initializeApp();
   await FirebaseAuth.instance.signInAnonymously();
   runApp(MyApp());

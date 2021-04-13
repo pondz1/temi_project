@@ -1,7 +1,3 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 // ignore_for_file: public_member_api_docs
 
 import 'dart:async';
@@ -9,6 +5,17 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
+List<CameraDescription> cameras = [];
+
+class CameraApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CameraExampleHome(),
+    );
+  }
+}
 
 class CameraExampleHome extends StatefulWidget {
   @override
@@ -53,6 +60,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     try {
       WidgetsFlutterBinding.ensureInitialized();
       cameras = await availableCameras();
+      setState(() {});
     } on CameraException catch (e) {
       logError(e.code, e.description);
     }
@@ -263,14 +271,3 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     showInSnackBar('Error: ${e.code}\n${e.description}');
   }
 }
-
-class CameraApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CameraExampleHome(),
-    );
-  }
-}
-
-List<CameraDescription> cameras = [];

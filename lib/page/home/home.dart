@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/game/game.dart';
 import 'package:flutter_temi_project/page/shop/shop.dart';
+import 'package:flutter_temi_project/page/test/camera.dart';
 
 // ignore: unused_import
 import '../camera/cameraPage.dart';
@@ -68,11 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    // CameraPage(),
-                                    CameraExampleHome(),
-                                // TakePictureScreen(camera: cameraDescription,)
-                              ));
+                                  builder: (context) =>
+                                      // CameraPage(),
+                                      // CameraApp(),
+                                      TakePictureScreen(
+                                        camera: cameraDescription,
+                                      )));
                         },
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:bordered_text/bordered_text.dart';
 import 'package:camera/camera.dart';
@@ -34,7 +35,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       (Timer timer) {
         if (_start == 0) {
           setState(() async {
-            timer.cancel();
             final image = await _controller.takePicture();
             Navigator.push(
                 context,
@@ -48,6 +48,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                     countText = "";
                   })
                 });
+            timer.cancel();
             // Navigator.push(
             //   context,
             //   MaterialPageRoute(
@@ -72,7 +73,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     super.initState();
     _controller = CameraController(
       widget.camera,
-      ResolutionPreset.medium,
+      ResolutionPreset.ultraHigh,
     );
     _initializeControllerFuture = _controller.initialize();
   }
@@ -120,15 +121,25 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                       ),
                       Container(
                         height: 650,
+                        // width: 1200,
                         child: Padding(
                           padding:
                               const EdgeInsets.only(right: 34.0, bottom: 1),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              AspectRatio(
-                                aspectRatio: _controller.value.aspectRatio,
-                                child: CameraPreview(_controller),
+                              RotatedBox(
+                                quarterTurns: 1,
+                                child: Transform(
+                                  alignment: Alignment.center,
+                                  transform: Matrix4.rotationY(math.pi),
+                                  child: Center(
+                                    child: AspectRatio(
+                                      aspectRatio: 3.0 / 4.0,
+                                      child: CameraPreview(_controller),
+                                    ),
+                                  ),
+                                ),
                               ),
                               BorderedText(
                                 strokeWidth: 10,
@@ -157,16 +168,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                 try {
                                   await _initializeControllerFuture;
                                   _onSelfie();
-                                  // final image = await _controller.takePicture();
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) =>
-                                  //         DisplayPictureScreen(
-                                  //       imagePath: image?.path,
-                                  //     ),
-                                  //   ),
-                                  // );
                                 } catch (e) {
                                   print(e);
                                 }

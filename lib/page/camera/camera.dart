@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bordered_text/bordered_text.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/camera/cameraPreview.dart';
@@ -38,9 +39,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CameraPreviewImage(
-                          imagePath: image.path,
-                        ))).then((value) => {
+                  builder: (context) => CameraPreviewImage(
+                    imagePath: image.path,
+                  ),
+                )).then((value) => {
                   setState(() {
                     countText = "";
                   })
@@ -127,14 +129,17 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                 aspectRatio: _controller.value.aspectRatio,
                                 child: CameraPreview(_controller),
                               ),
-                              Text(
-                                countText,
-                                style: GoogleFonts.kanit(
-                                  fontSize: 100,
-                                  foreground: Paint()
-                                    ..style = PaintingStyle.stroke
-                                    ..strokeWidth = 4
-                                    ..color = Colors.blue[700],
+                              BorderedText(
+                                strokeWidth: 10,
+                                strokeColor: Colors.black,
+                                child: Text(
+                                  countText,
+                                  style: GoogleFonts.kanit(
+                                    fontSize: 100,
+                                    decoration: TextDecoration.none,
+                                    decorationColor: Colors.red,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ],

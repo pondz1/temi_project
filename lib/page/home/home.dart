@@ -4,7 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/game/game.dart';
 import 'package:flutter_temi_project/page/shop/shop.dart';
-import 'package:flutter_temi_project/page/test/camera.dart';
+import 'package:flutter_temi_project/page/camera/camera.dart';
 
 // ignore: unused_import
 import '../camera/cameraPage.dart';

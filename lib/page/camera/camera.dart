@@ -3,28 +3,8 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
-Future<void> main() async {
-  // Ensure that plugin services are initialized so that `availableCameras()`
-  // can be called before `runApp()`
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Obtain a list of the available cameras on the device.
-  final cameras = await availableCameras();
-
-  // Get a specific camera from the list of available cameras.
-  final firstCamera = cameras.first;
-
-  runApp(
-    MaterialApp(
-      theme: ThemeData.dark(),
-      home: TakePictureScreen(
-        // Pass the appropriate camera to the TakePictureScreen widget.
-        camera: firstCamera,
-      ),
-    ),
-  );
-}
+import 'package:flutter_temi_project/page/camera/cameraPreview.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
@@ -42,6 +22,47 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   CameraController _controller;
   Future<void> _initializeControllerFuture;
+  var countText = "";
+  Timer _timer;
+
+  _onSelfie() {
+    int _start = 4;
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          setState(() async {
+            timer.cancel();
+            final image = await _controller.takePicture();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CameraPreviewImage(
+                          imagePath: image.path,
+                        ))).then((value) => {
+                  setState(() {
+                    countText = "";
+                  })
+                });
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => DisplayPictureScreen(
+            //       imagePath: image?.path,
+            //     ),
+            //   ),
+            // );
+          });
+        } else {
+          setState(() {
+            _start--;
+            countText = _start.toString();
+          });
+        }
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -57,6 +78,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+    if (_timer != null) {
+      _timer.cancel();
+    }
   }
 
   @override
@@ -78,6 +102,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                         IconButton(
                             icon: Icon(Icons.arrow_back),
                             iconSize: 40,
+                            color: Colors.white,
                             onPressed: () {
                               Navigator.pop(context);
                             })
@@ -94,10 +119,25 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                         height: 650,
                         child: Padding(
                           padding:
-                              const EdgeInsets.only(right: 34.0, bottom: 20),
-                          child: AspectRatio(
-                            aspectRatio: _controller.value.aspectRatio,
-                            child: CameraPreview(_controller),
+                              const EdgeInsets.only(right: 34.0, bottom: 1),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              AspectRatio(
+                                aspectRatio: _controller.value.aspectRatio,
+                                child: CameraPreview(_controller),
+                              ),
+                              Text(
+                                countText,
+                                style: GoogleFonts.kanit(
+                                  fontSize: 100,
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 4
+                                    ..color = Colors.blue[700],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -110,17 +150,17 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                               onPressed: () async {
                                 try {
                                   await _initializeControllerFuture;
-                                  final image = await _controller.takePicture();
-                                  print(image.path);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          DisplayPictureScreen(
-                                        imagePath: image?.path,
-                                      ),
-                                    ),
-                                  );
+                                  _onSelfie();
+                                  // final image = await _controller.takePicture();
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         DisplayPictureScreen(
+                                  //       imagePath: image?.path,
+                                  //     ),
+                                  //   ),
+                                  // );
                                 } catch (e) {
                                   print(e);
                                 }

@@ -1,33 +1,53 @@
+import 'dart:io';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/camera/cameraDownload.dart';
 
-class CameraPreview extends StatefulWidget {
+class CameraPreviewImage extends StatefulWidget {
+  final String imagePath;
+  CameraPreviewImage({Key key, this.imagePath}) : super(key: key);
   @override
   _CameraPreviewState createState() => _CameraPreviewState();
 }
 
-class _CameraPreviewState extends State<CameraPreview> {
+class _CameraPreviewState extends State<CameraPreviewImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent.withOpacity(0.1),
-      ),
+      // extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent.withOpacity(0.1),
+      // ),
       body: Container(
         color: Color(0xFF0E3139),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 40.0, left: 20),
+              child: Row(
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      iconSize: 40,
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      })
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   color: Colors.white,
-                  height: MediaQuery.of(context).size.height - 310,
+                  height: MediaQuery.of(context).size.height - 225,
                   width: MediaQuery.of(context).size.width - 190,
-                  child: Image.asset("assets/images/979076.jpg"),
+                  child: Image.file(
+                    File(widget.imagePath),
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
               ],
             ),

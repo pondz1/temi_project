@@ -36,8 +36,10 @@ class _CameraScreenState extends State<CameraScreen> {
         if (_start == 0) {
           setState(() {
             timer.cancel();
-            Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CameraPreview()))
+            Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CameraPreviewImage()))
                 .then((value) => {
                       setState(() {
                         countText = "";

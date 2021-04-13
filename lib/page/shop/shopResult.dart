@@ -180,6 +180,7 @@ class _ShopShopResultState extends State<ShopResult> {
                     FirebaseImage('gs://temi-668a9.appspot.com/image/$image'),
                 height: 150,
                 fit: BoxFit.cover,
+                filterQuality: FilterQuality.low,
               ),
             ),
             Wrap(

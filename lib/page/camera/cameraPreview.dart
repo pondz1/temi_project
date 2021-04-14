@@ -3,6 +3,7 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/camera/cameraDownload.dart';
 import 'package:flutter_temi_project/service/database.dart';
+import 'package:image/image.dart' as Img;
 
 class CameraPreviewImage extends StatefulWidget {
   final String imagePath;
@@ -14,6 +15,20 @@ class CameraPreviewImage extends StatefulWidget {
 }
 
 class _CameraPreviewState extends State<CameraPreviewImage> {
+  Img.Image _img;
+
+  @override
+  void initState() {
+    super.initState();
+    List<int> bytes = File(widget.imagePath).readAsBytesSync();
+    _img = Img.decodeImage(bytes);
+    _img = Img.flipHorizontal(_img);
+    String text = 'Hello World';
+    int y = (_img.height / 1.3).floor();
+    // int x = (_img.width / 2).floor() - (text.length).floor();
+    Img.drawStringCentered(_img, Img.arial_24, text, y: y, color: 0xff00ddfd);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +59,15 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  color: Colors.white,
+                  // color: Colors.white,
                   height: MediaQuery.of(context).size.height - 225,
                   width: MediaQuery.of(context).size.width - 190,
-                  child: Image.file(
-                    File(widget.imagePath),
+                  // child: Image.file(
+                  //   File(widget.imagePath),
+                  //   fit: BoxFit.fitHeight,
+                  // ),
+                  child: Image.memory(
+                    Img.encodeJpg(_img),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -58,7 +77,7 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
               onTap: () async {
                 // print('onTap Group 8');
                 await DatabaseService()
-                    .uploadFile(widget.imagePath, widget.imageName);
+                    .uploadFile(Img.encodeJpg(_img), widget.imageName);
                 var url = await DatabaseService().downloadURL(widget.imageName);
                 Navigator.push(
                     context,

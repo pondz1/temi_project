@@ -1,5 +1,5 @@
 // Import the firebase_core and cloud_firestore plugin
-import 'dart:io';
+import 'dart:typed_data' show Uint8List;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -76,11 +76,12 @@ class DatabaseService {
     });
   }
 
-  Future<void> uploadFile(String filePath, String imageName) async {
-    File file = File(filePath);
+  Future<void> uploadFile(List<int> encoded, String imageName) async {
+    // File file = File(filePath);
+    Uint8List data = Uint8List.fromList(encoded);
 
     try {
-      await FirebaseStorage.instance.ref('picture/$imageName').putFile(file);
+      await FirebaseStorage.instance.ref('picture/$imageName').putData(data);
     } on FirebaseException catch (e) {
       // e.g, e.code == 'canceled'
     }

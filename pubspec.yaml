@@ -63,7 +63,7 @@ dependencies:
   ndialog: ^4.0.1
   badges: ^1.2.0
   qr_flutter: ^4.0.0
-  native_device_orientation: ^1.0.0
+  image: ^3.0.2
   # flutter_temi: ^0.0.13
 
 dev_dependencies:

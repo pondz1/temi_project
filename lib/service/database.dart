@@ -6,14 +6,17 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_temi_project/model/Banner.dart';
 import 'package:flutter_temi_project/model/Goods.dart';
 import 'package:flutter_temi_project/model/User.dart';
+import 'package:flutter_temi_project/model/Word.dart';
 
 class DatabaseService {
-  final CollectionReference users =
+  final CollectionReference usersRef =
       FirebaseFirestore.instance.collection('users');
-  final CollectionReference goods =
+  final CollectionReference goodsRef =
       FirebaseFirestore.instance.collection('goods');
-  final CollectionReference banner =
+  final CollectionReference bannerRef =
       FirebaseFirestore.instance.collection('banner');
+  final CollectionReference wordRef =
+      FirebaseFirestore.instance.collection('word');
 
   List<User> _getListUser(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -22,7 +25,7 @@ class DatabaseService {
   }
 
   Stream<List<User>> getUser() {
-    return users.snapshots().map(_getListUser);
+    return usersRef.snapshots().map(_getListUser);
   }
 
   List<Goods> _getListGoods(QuerySnapshot snapshot) {
@@ -39,7 +42,7 @@ class DatabaseService {
   }
 
   Stream<List<Goods>> getGoodsByName(String name) {
-    return goods
+    return goodsRef
         .orderBy('name')
         .startAt([name.toLowerCase()])
         .endAt([name.toLowerCase() + '\uf8ff'])
@@ -60,14 +63,14 @@ class DatabaseService {
   }
 
   Stream<List<BannerShop>> getBanner() {
-    return banner
+    return bannerRef
         .orderBy('click', descending: true)
         .snapshots()
         .map(_getListBanner);
   }
 
   updateBanner(value) {
-    banner.doc(value.id).set({
+    bannerRef.doc(value.id).set({
       'filename': value.filename,
       'detail': value.detail,
       'location': value.location,
@@ -94,5 +97,21 @@ class DatabaseService {
     return downloadURL;
     // Within your widgets:
     // Image.network(downloadURL);
+  }
+
+  List<Word> _getListWords(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Word(
+        text: doc['text'],
+        // time: doc['time'],
+      );
+    }).toList();
+  }
+
+  Stream<List<Word>> getWords() {
+    return wordRef
+        .orderBy('time', descending: true)
+        .snapshots()
+        .map(_getListWords);
   }
 }

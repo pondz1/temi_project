@@ -8,7 +8,8 @@ import 'package:image/image.dart' as Img;
 class CameraPreviewImage extends StatefulWidget {
   final String imagePath;
   final String imageName;
-  CameraPreviewImage({Key key, this.imagePath, this.imageName})
+  final String word;
+  CameraPreviewImage({Key key, this.imagePath, this.imageName, this.word})
       : super(key: key);
   @override
   _CameraPreviewState createState() => _CameraPreviewState();
@@ -23,7 +24,7 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
     List<int> bytes = File(widget.imagePath).readAsBytesSync();
     _img = Img.decodeImage(bytes);
     _img = Img.flipHorizontal(_img);
-    String text = 'Hello World';
+    String text = widget.word;
     int y = (_img.height / 1.3).floor();
     // int x = (_img.width / 2).floor() - (text.length).floor();
     Img.drawStringCentered(_img, Img.arial_24, text, y: y, color: 0xff00ddfd);

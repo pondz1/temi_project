@@ -225,7 +225,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                             onPressed: () async {
                               try {
                                 await _initializeControllerFuture;
-                                _onSelfie();
+                                if(!_isTake){
+                                  _onSelfie();
+                                }
                               } catch (e) {
                                 print(e);
                               }

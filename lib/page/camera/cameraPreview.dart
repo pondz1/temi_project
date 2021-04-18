@@ -100,6 +100,7 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
               child: RoundedLoadingButton(
                 color: Color(0xFFBE3F55),
                 height: 80,
+                width: 80,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: BorderedText(

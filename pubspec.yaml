@@ -64,6 +64,9 @@ dependencies:
   badges: ^1.2.0
   qr_flutter: ^4.0.0
   image: ^3.0.2
+  screenshot: ^0.3.0
+  rounded_loading_button: ^1.0.0
+
   # flutter_temi: ^0.0.13
 
 dev_dependencies:

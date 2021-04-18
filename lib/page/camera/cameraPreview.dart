@@ -1,22 +1,31 @@
+import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/camera/cameraDownload.dart';
 import 'package:flutter_temi_project/service/database.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image/image.dart' as Img;
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:screenshot/screenshot.dart';
+
+final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
 
 class CameraPreviewImage extends StatefulWidget {
   final String imagePath;
   final String imageName;
   final String word;
-  CameraPreviewImage({Key key, this.imagePath, this.imageName, this.word})
-      : super(key: key);
+
+  CameraPreviewImage({Key key, this.imagePath, this.imageName, this.word}) : super(key: key);
+
   @override
   _CameraPreviewState createState() => _CameraPreviewState();
 }
 
 class _CameraPreviewState extends State<CameraPreviewImage> {
   Img.Image _img;
+  ScreenshotController screenshotController = ScreenshotController();
 
   @override
   void initState() {
@@ -24,19 +33,18 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
     List<int> bytes = File(widget.imagePath).readAsBytesSync();
     _img = Img.decodeImage(bytes);
     _img = Img.flipHorizontal(_img);
-    String text = widget.word;
-    int y = (_img.height / 1.3).floor();
-    // int x = (_img.width / 2).floor() - (text.length).floor();
-    Img.drawStringCentered(_img, Img.arial_24, text, y: y, color: 0xff00ddfd);
+  }
+
+  void _doSomething() async {
+    Timer(Duration(seconds: 3), () {
+      _btnController.success();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var _height = MediaQuery.of(context).size.height - 225;
     return Scaffold(
-      // extendBodyBehindAppBar: true,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent.withOpacity(0.1),
-      // ),
       body: Container(
         color: Color(0xFF0E3139),
         child: Column(
@@ -56,67 +64,80 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  // color: Colors.white,
-                  height: MediaQuery.of(context).size.height - 225,
-                  width: MediaQuery.of(context).size.width - 190,
-                  // child: Image.file(
-                  //   File(widget.imagePath),
-                  //   fit: BoxFit.fitHeight,
-                  // ),
-                  child: Image.memory(
-                    Img.encodeJpg(_img),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              ],
-            ),
-            InkWell(
-              onTap: () async {
-                // print('onTap Group 8');
-                await DatabaseService()
-                    .uploadFile(Img.encodeJpg(_img), widget.imageName);
-                var url = await DatabaseService().downloadURL(widget.imageName);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CameraDownload(
-                              imageURL: url,
-                            ))).then((value) => {setState(() {})});
-              },
-              child: Container(
-                margin: EdgeInsets.only(top: 20),
+            Screenshot(
+              controller: screenshotController,
+              child: Stack(
                 alignment: Alignment.center,
-                width: 535.0,
-                height: 92.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  color: const Color(0xFFBE3F55),
-                  border: Border.all(
-                    width: 1.0,
-                    color: const Color(0xFF707070),
-                  ),
-                ),
-                child: BorderedText(
-                  strokeWidth: 1,
-                  strokeColor: Colors.black,
-                  strokeCap: StrokeCap.butt,
-                  strokeJoin: StrokeJoin.miter,
-                  child: Text(
-                    'download picture',
-                    style: TextStyle(
-                      fontFamily: 'JasmineUPC',
-                      fontSize: 40.0,
-                      color: Colors.black,
-                      letterSpacing: 6,
-                      fontWeight: FontWeight.w700,
+                children: [
+                  Container(
+                    height: _height,
+                    child: Image.memory(
+                      Img.encodeJpg(_img),
+                      fit: BoxFit.fitHeight,
                     ),
-                    textAlign: TextAlign.center,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: _height / 1.5),
+                    child: BorderedText(
+                      strokeWidth: 10,
+                      strokeColor: Colors.black,
+                      child: Text(
+                        widget.word,
+                        style: GoogleFonts.kanit(
+                          fontSize: 40,
+                          decoration: TextDecoration.none,
+                          decorationColor: Colors.red,
+                          color: Color(0xfffddd00),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: RoundedLoadingButton(
+                color: Color(0xFFBE3F55),
+                height: 80,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: BorderedText(
+                    strokeWidth: 1,
+                    strokeColor: Colors.black,
+                    // strokeCap: StrokeCap.butt,
+                    // strokeJoin: StrokeJoin.miter,
+                    child: Text(
+                      'download picture',
+                      style: TextStyle(
+                        fontFamily: 'JasmineUPC',
+                        fontSize: 40.0,
+                        color: Colors.black,
+                        letterSpacing: 6,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
+                controller: _btnController,
+                onPressed: () async {
+                  // print('onTap Group 8');
+                  await screenshotController
+                      .capture(delay: Duration(milliseconds: 10), pixelRatio: 1)
+                      .then((Uint8List image) async {
+                    await DatabaseService().uploadFile(image, widget.imageName);
+                    var url = await DatabaseService().downloadURL(widget.imageName);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CameraDownload(
+                          imageURL: url,
+                        ),
+                      ),
+                    ).then((value) => {setState(() {})});
+                  });
+                },
               ),
             ),
           ],

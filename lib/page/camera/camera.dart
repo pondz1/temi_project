@@ -30,6 +30,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   var wordText = "";
   var _isTake = false;
   Timer _timer;
+  double _height = 650;
 
   _onSelfie() {
     int _start = 4;
@@ -123,7 +124,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                   children: [
                     Container(
                       width: 180,
-                      height: 600,
+                      height: _height - 50,
                       child: ListView.builder(
                           itemCount: words.length,
                           itemBuilder: (context, index) {
@@ -146,7 +147,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                           }),
                     ),
                     Container(
-                      height: 650,
+                      height: _height,
                       // width: 1200,
                       child: Padding(
                           padding:
@@ -186,14 +187,14 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                 ],
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 400.0),
+                                padding: EdgeInsets.only(top: _height/1.5),
                                 child: BorderedText(
                                   strokeWidth: 10,
                                   strokeColor: Colors.black,
                                   child: Text(
                                     wordText,
                                     style: GoogleFonts.kanit(
-                                      fontSize: 50,
+                                      fontSize: 40,
                                       decoration: TextDecoration.none,
                                       decorationColor: Colors.red,
                                       color: Color(0xfffddd00),
@@ -244,9 +245,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         child: StreamBuilder(
             stream: DatabaseService().getWords(),
             builder: (context, snapshot) {
-              List<Word> words = snapshot.data;
-              words.insert(0, Word(time: DateTime.now(), text: 'None'));
               if (snapshot.hasData) {
+                List<Word> words = snapshot.data;
+                words.insert(0, Word(time: DateTime.now(), text: 'None'));
                 return camera(words);
               } else {
                 return Center(child: CircularProgressIndicator());

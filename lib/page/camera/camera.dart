@@ -188,19 +188,30 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: _height/1.5),
-                                child: BorderedText(
-                                  strokeWidth: 10,
-                                  strokeColor: Colors.black,
-                                  child: Text(
-                                    wordText,
-                                    style: GoogleFonts.kanit(
-                                      fontSize: 40,
-                                      decoration: TextDecoration.none,
-                                      decorationColor: Colors.red,
-                                      color: Color(0xfffddd00),
-                                    ),
+                                child:Container(
+                                  width: _height+150,
+                                  child: Wrap(
+                                    alignment: WrapAlignment.end,
+                                    children: [
+                                      Center(
+                                        child: BorderedText(
+                                          strokeWidth: 10,
+                                          strokeColor: Colors.black,
+                                          child: Text(
+                                            wordText,
+                                            style: GoogleFonts.kanit(
+                                              fontSize: 30,
+                                              decoration: TextDecoration.none,
+                                              decorationColor: Colors.red,
+                                              color: Color(0xfffddd00),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
+                                )
                               ),
                             ],
                           )),

@@ -71,26 +71,39 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
                 children: [
                   Container(
                     height: _height,
+                    // width: double.parse(_img.height.toString()),
                     child: Image.memory(
                       Img.encodeJpg(_img),
                       fit: BoxFit.fitHeight,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: _height / 1.5),
-                    child: BorderedText(
-                      strokeWidth: 10,
-                      strokeColor: Colors.black,
-                      child: Text(
-                        widget.word,
-                        style: GoogleFonts.kanit(
-                          fontSize: 40,
-                          decoration: TextDecoration.none,
-                          decorationColor: Colors.red,
-                          color: Color(0xfffddd00),
+                      padding: EdgeInsets.only(top: _height/1.5),
+                      child:Container(
+                        width: _height+100,
+                        // height: _height,
+                        child: Wrap(
+                          alignment: WrapAlignment.end,
+                          children: [
+                            Center(
+                              child: BorderedText(
+                                strokeWidth: 10,
+                                strokeColor: Colors.black,
+                                child: Text(
+                                  widget.word,
+                                  style: GoogleFonts.kanit(
+                                    fontSize: 30,
+                                    decoration: TextDecoration.none,
+                                    decorationColor: Colors.red,
+                                    color: Color(0xfffddd00),
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
+                      )
                   ),
                 ],
               ),

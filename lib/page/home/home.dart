@@ -1,7 +1,10 @@
 import 'dart:developer';
 
+import 'package:bordered_text/bordered_text.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_temi_project/myColors.dart';
 import 'package:flutter_temi_project/page/game/game.dart';
 import 'package:flutter_temi_project/page/shop/shop.dart';
 import 'package:flutter_temi_project/page/camera/camera.dart';
@@ -42,11 +45,38 @@ class _MyHomePageState extends State<MyHomePage> {
       //   title: Text(widget.title),
       // ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFF272C35)),
+        decoration: BoxDecoration(color: AppColors.background),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.adb,
+                      size: 180,
+                      color: AppColors.primary,
+                    ),
+                    BorderedText(
+                      strokeWidth: 5,
+                      strokeColor: AppColors.primary,
+                      strokeCap: StrokeCap.butt,
+                      strokeJoin: StrokeJoin.miter,
+                      child: Text(
+                        'Temi Funny',
+                        style: TextStyle(
+                          fontFamily: 'JasmineUPC',
+                          fontSize: 80.0,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -67,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
+                              CupertinoPageRoute(
                                   builder: (context) =>
                                       // CameraPage(),
                                       // CameraApp(),
@@ -94,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         onPressed: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Game()));
+                              CupertinoPageRoute(builder: (context) => Game()));
                         },
                       ),
                     ),
@@ -115,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         onPressed: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Shop()));
+                              CupertinoPageRoute(builder: (context) => Shop()));
                         },
                       ),
                     ),

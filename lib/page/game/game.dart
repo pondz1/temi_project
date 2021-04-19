@@ -1,5 +1,7 @@
 import 'package:bordered_text/bordered_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_temi_project/myColors.dart';
 import 'package:flutter_temi_project/page/game/gamePlay1.dart';
 import 'package:flutter_temi_project/page/game/spotTheDifference/spotTheDifference.dart';
 
@@ -17,7 +19,7 @@ class _GameState extends State<Game> {
       //   backgroundColor: Colors.transparent.withOpacity(0.1),
       // ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFF272C35)),
+        decoration: BoxDecoration(color: AppColors.background),
         child: Column(
           children: [
             Padding(
@@ -27,7 +29,7 @@ class _GameState extends State<Game> {
                   IconButton(
                       icon: Icon(Icons.arrow_back),
                       iconSize: 40,
-                      color: Colors.white,
+                      color: Colors.red,
                       onPressed: () {
                         Navigator.pop(context);
                       })
@@ -44,11 +46,11 @@ class _GameState extends State<Game> {
                       Icon(
                         Icons.videogame_asset_rounded,
                         size: 180,
-                        color: Colors.white,
+                        color: AppColors.primary,
                       ),
                       BorderedText(
                         strokeWidth: 5,
-                        strokeColor: Colors.white,
+                        strokeColor: AppColors.primary,
                         strokeCap: StrokeCap.butt,
                         strokeJoin: StrokeJoin.miter,
                         child: Text(
@@ -56,7 +58,7 @@ class _GameState extends State<Game> {
                           style: TextStyle(
                             fontFamily: 'JasmineUPC',
                             fontSize: 80.0,
-                            color: Colors.white,
+                            color: AppColors.primary,
                           ),
                         ),
                       ),
@@ -93,7 +95,7 @@ class _GameState extends State<Game> {
                     print("tap");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      CupertinoPageRoute(
                         builder: (context) => SpotTheDifference(),
                       ),
                     );

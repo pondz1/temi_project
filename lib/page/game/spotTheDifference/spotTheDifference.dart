@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_temi_project/myColors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class SpotTheDifference extends StatefulWidget {
@@ -80,7 +81,7 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.primary,
         title: Text("\t Correct : " +
             _countCorrect.toString() +
             "\t Wrong : " +
@@ -88,7 +89,7 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFF272C35)),
+        decoration: BoxDecoration(color: AppColors.background),
         height: double.maxFinite,
         child: new Stack(
           //alignment:new Alignment(x, y)

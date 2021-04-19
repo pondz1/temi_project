@@ -1,6 +1,7 @@
 import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
 import 'package:bordered_text/bordered_text.dart';
+import 'package:flutter_temi_project/myColors.dart';
 import 'package:flutter_temi_project/page/shop/shopResult.dart';
 import 'package:flutter_temi_project/service/database.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +24,7 @@ class _ShopState extends State<Shop> {
       //   backgroundColor: Colors.transparent.withOpacity(0.1),
       // ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFF272C35)),
+        decoration: BoxDecoration(color: AppColors.background),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +36,7 @@ class _ShopState extends State<Shop> {
                   IconButton(
                       icon: Icon(Icons.arrow_back),
                       iconSize: 40,
-                      color: Colors.white,
+                      color: AppColors.primary,
                       onPressed: () {
                         Navigator.pop(context);
                       })
@@ -46,14 +47,14 @@ class _ShopState extends State<Shop> {
               padding: const EdgeInsets.all(10.0),
               child: BorderedText(
                 strokeWidth: 1,
-                strokeColor: Colors.white,
+                strokeColor: AppColors.primary,
                 strokeCap: StrokeCap.butt,
                 strokeJoin: StrokeJoin.miter,
                 child: Text(
                   'ค้นหาสินค้า',
                   style: GoogleFonts.kanit(
                     fontSize: 25.0,
-                    color: Colors.white,
+                    color: AppColors.primary,
                   ),
                 ),
               ),
@@ -68,8 +69,9 @@ class _ShopState extends State<Shop> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  prefixIcon: Icon(Icons.search),
-                  fillColor: Colors.white,
+                  //suffixIcon: Icon(Icons.search,color: AppColors.primary,),
+                  prefixIcon: Icon(Icons.search,color: AppColors.primary,),
+                  fillColor: AppColors.background,
                   filled: true,
                 ),
                 textInputAction: TextInputAction.search,
@@ -88,14 +90,14 @@ class _ShopState extends State<Shop> {
               padding: const EdgeInsets.all(60.0),
               child: BorderedText(
                 strokeWidth: 1,
-                strokeColor: Colors.white,
+                strokeColor: AppColors.primary,
                 strokeCap: StrokeCap.butt,
                 strokeJoin: StrokeJoin.miter,
                 child: Text(
                   'Promotions ',
                   style: GoogleFonts.kanit(
                     fontSize: 25.0,
-                    color: Colors.white,
+                    color: AppColors.primary,
                   ),
                 ),
               ),

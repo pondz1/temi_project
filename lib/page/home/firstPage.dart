@@ -1,5 +1,6 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_temi_project/myColors.dart';
 
 import 'home.dart';
 
@@ -9,7 +10,8 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF272C35),
+      //backgroundColor: const Color(0xFF272C35),
+      backgroundColor: AppColors.background,
       body: Align(
         alignment: Alignment(0.0, 0.26),
         child: SizedBox(
@@ -17,6 +19,7 @@ class FirstPage extends StatelessWidget {
           height: 1080.0,
           child: Column(
             children: <Widget>[
+
               Spacer(flex: 302),
               BorderedText(
                 strokeWidth: 1,
@@ -28,7 +31,7 @@ class FirstPage extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'JasmineUPC',
                     fontSize: 200.0,
-                    color: Colors.white,
+                    color: AppColors.primary,
                     letterSpacing: 25,
                     fontWeight: FontWeight.w700,
                     shadows: [
@@ -61,23 +64,19 @@ class FirstPage extends StatelessWidget {
                   height: 109.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50.0),
-                    color: const Color(0xFFBE3F55),
-                    border: Border.all(
-                      width: 1.0,
-                      color: const Color(0xFF707070),
-                    ),
+                    color: AppColors.primary,
                   ),
                   child: BorderedText(
                     strokeWidth: 1,
-                    strokeColor: Colors.black,
+                    strokeColor: Colors.red,
                     strokeCap: StrokeCap.butt,
                     strokeJoin: StrokeJoin.miter,
                     child: Text(
-                      'Click me',
+                      'คลิกที่นี่',
                       style: TextStyle(
                         fontFamily: 'JasmineUPC',
                         fontSize: 60.0,
-                        color: Colors.black,
+                        color: AppColors.background,
                         letterSpacing: 6,
                         fontWeight: FontWeight.w700,
                       ),

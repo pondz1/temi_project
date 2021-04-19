@@ -5,6 +5,7 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/model/Word.dart';
+import 'package:flutter_temi_project/myColors.dart';
 import 'package:flutter_temi_project/page/camera/cameraPreview.dart';
 import 'package:flutter_temi_project/service/database.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -112,7 +113,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         if (snapshot.connectionState == ConnectionState.done) {
           return Container(
             // decoration: BoxDecoration(color: Color(0xFF0E3139)),
-            decoration: BoxDecoration(color: Color(0xFF272C35)),
+            decoration: BoxDecoration(color: AppColors.background),
             child: Column(
               children: [
                 Padding(
@@ -122,7 +123,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                       IconButton(
                           icon: Icon(Icons.arrow_back),
                           iconSize: 40,
-                          color: Colors.white,
+                          color: AppColors.primary,
                           onPressed: () {
                             Navigator.pop(context);
                           })
@@ -149,7 +150,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                         bottomLeft: Radius.circular(8.0),
                                         topLeft: Radius.circular(8.0),
                                     ),
-                                    color: _selected[index] ? Colors.blue : Colors.white,
+                                    color: _selected[index] ? AppColors.primary : Colors.black12,
                                   ),
                                   child: ListTile(
                                     title: Text(words[index].text, style: GoogleFonts.kanit(
@@ -196,7 +197,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                       style: GoogleFonts.kanit(
                                         fontSize: 100,
                                         decoration: TextDecoration.none,
-                                        decorationColor: Colors.red,
+                                        decorationColor: AppColors.primary,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -219,7 +220,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                               style: GoogleFonts.kanit(
                                                 fontSize: 30,
                                                 decoration: TextDecoration.none,
-                                                decorationColor: Colors.red,
+                                                decorationColor: AppColors.primary,
                                                 color: Color(0xfffddd00),
                                               ),
                                               textAlign: TextAlign.center,

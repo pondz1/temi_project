@@ -46,6 +46,7 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
     super.initState();
     startTimer();
   }
+
   @override
   void dispose() {
     super.dispose();

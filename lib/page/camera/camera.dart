@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:bordered_text/bordered_text.dart';
@@ -31,6 +30,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   var _isTake = false;
   Timer _timer;
   double _height = 650;
+  int _wordsCount = 0;
+  List<bool> _selected ;
 
   _onSelfie() {
     int _start = 4;
@@ -46,9 +47,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CameraPreviewImage(
-                      imagePath: image.path,
-                      imageName: image.name,
-                      word: wordText),
+                      imagePath: image.path, imageName: image.name, word: wordText),
                 )).then((value) => {
                   setState(() {
                     countText = "";
@@ -67,7 +66,16 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     );
   }
 
-  _onChangeWord(String text) {
+  _onChangeWord(String text, int index) {
+    for (int i = 0; i < _wordsCount; i++) {
+
+      if(i == index){
+        _selected[i] = true;
+      } else {
+        _selected[i] = false;
+      }
+
+    }
     setState(() {
       if (text == 'None') {
         wordText = '';
@@ -85,6 +93,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ResolutionPreset.ultraHigh,
     );
     _initializeControllerFuture = _controller.initialize();
+    _selected = List.generate(_wordsCount, (i) => false);
   }
 
   @override
@@ -134,11 +143,19 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                               return Padding(
                                 padding: EdgeInsets.only(top: 10),
                                 child: Container(
-                                  color: Colors.white,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(8.0),
+                                        topLeft: Radius.circular(8.0),
+                                    ),
+                                    color: _selected[index] ? Colors.blue : Colors.white,
+                                  ),
                                   child: ListTile(
-                                    title: Text(words[index].text),
+                                    title: Text(words[index].text, style: GoogleFonts.kanit(
+                                      color: _selected[index] ? Colors.white : Colors.black,
+                                    ),),
                                     onTap: () {
-                                      _onChangeWord(words[index].text);
+                                      _onChangeWord(words[index].text, index);
                                     },
                                   ),
                                 ),
@@ -150,8 +167,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                       height: _height,
                       // width: 1200,
                       child: Padding(
-                          padding:
-                              const EdgeInsets.only(right: 34.0, bottom: 1),
+                          padding: const EdgeInsets.only(right: 25.0, bottom: 1),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -187,57 +203,86 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: _height/1.5),
-                                child:Container(
-                                  width: _height+150,
-                                  child: Wrap(
-                                    alignment: WrapAlignment.end,
-                                    children: [
-                                      Center(
-                                        child: BorderedText(
-                                          strokeWidth: 10,
-                                          strokeColor: Colors.black,
-                                          child: Text(
-                                            wordText,
-                                            style: GoogleFonts.kanit(
-                                              fontSize: 30,
-                                              decoration: TextDecoration.none,
-                                              decorationColor: Colors.red,
-                                              color: Color(0xfffddd00),
+                                  padding: EdgeInsets.only(top: _height / 1.5),
+                                  child: Container(
+                                    width: _height + 150,
+                                    child: Wrap(
+                                      alignment: WrapAlignment.end,
+                                      children: [
+                                        Center(
+                                          child: BorderedText(
+                                            strokeWidth: 10,
+                                            strokeColor: Colors.black,
+                                            child: Text(
+                                              wordText,
+                                              style: GoogleFonts.kanit(
+                                                fontSize: 30,
+                                                decoration: TextDecoration.none,
+                                                decorationColor: Colors.red,
+                                                color: Color(0xfffddd00),
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ),
+                                      ],
+                                    ),
+                                  )),
                             ],
                           )),
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(120),
-                      child: SizedBox(
-                          width: 150,
-                          height: 150,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              try {
-                                await _initializeControllerFuture;
-                                if(!_isTake){
-                                  _onSelfie();
-                                }
-                              } catch (e) {
-                                print(e);
-                              }
-                            },
-                            child: Icon(
-                              Icons.camera,
-                              size: 100,
-                            ),
-                          )),
-                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: SizedBox(
+                                // width: 50,
+                                height: 60,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                   setState(() {
+                                     _selected = List.generate(_wordsCount, (i) => false);
+                                     wordText = '';
+                                   });
+                                  },
+                                  child: Icon(
+                                    Icons.refresh,
+                                    size: 40,
+                                  ),
+                                )),
+                          ),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(120),
+                          child: SizedBox(
+                              width: 130,
+                              height: 130,
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  try {
+                                    await _initializeControllerFuture;
+                                    if (!_isTake) {
+                                      _onSelfie();
+                                    }
+                                  } catch (e) {
+                                    print(e);
+                                  }
+                                },
+                                child: Icon(
+                                  Icons.camera,
+                                  size: 100,
+                                ),
+                              )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Container( height: 60,),
+                        ),
+                      ],
+                    )
+
                   ],
                 ),
               ],
@@ -260,28 +305,17 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<Word> words = snapshot.data;
-                words.insert(0, Word(time: DateTime.now(), text: 'None'));
+                _wordsCount = words.length;
+                if (_selected.length == 0){
+                  _selected = List.generate(_wordsCount, (i) => false);
+                }
+                // words.insert(0, Word(time: DateTime.now(), text: 'None',selected: true));
                 return camera(words);
               } else {
                 return Center(child: CircularProgressIndicator());
               }
             }),
       ),
-    );
-  }
-}
-
-// A widget that displays the picture taken by the user.
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
-
-  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Display the Picture')),
-      body: Image.file(File(imagePath)),
     );
   }
 }

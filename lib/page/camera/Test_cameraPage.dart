@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_temi_project/page/camera/cameraScreen.dart';
+import 'package:flutter_temi_project/page/camera/Test_cameraScreen.dart';
 
 class CameraPage extends StatefulWidget {
   @override

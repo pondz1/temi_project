@@ -87,6 +87,7 @@ class DatabaseService {
       await FirebaseStorage.instance.ref('picture/$imageName').putData(data);
     } on FirebaseException catch (e) {
       // e.g, e.code == 'canceled'
+      print(e);
     }
   }
 
@@ -103,6 +104,7 @@ class DatabaseService {
     return snapshot.docs.map((doc) {
       return Word(
         text: doc['text'],
+        selected: false,
         // time: doc['time'],
       );
     }).toList();

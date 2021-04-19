@@ -7,7 +7,7 @@ import 'package:flutter_temi_project/page/shop/shop.dart';
 import 'package:flutter_temi_project/page/camera/camera.dart';
 
 // ignore: unused_import
-import '../camera/cameraPage.dart';
+import '../camera/Test_cameraPage.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);

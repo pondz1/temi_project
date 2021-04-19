@@ -46,6 +46,13 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
     super.initState();
     startTimer();
   }
+  @override
+  void dispose() {
+    super.dispose();
+    if (_timer != null) {
+      _timer.cancel();
+    }
+  }
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);

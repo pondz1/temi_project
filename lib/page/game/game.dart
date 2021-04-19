@@ -37,7 +37,7 @@ class _GameState extends State<Game> {
             Padding(
               padding: const EdgeInsets.only(top: 1.0, left: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
                     children: [
@@ -68,26 +68,26 @@ class _GameState extends State<Game> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                InkWell(
-                  onTap: () {
-                    print("tap");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => GamePlay1(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(60.0),
-                      child: Image.asset(
-                        "assets/images/game1.jpg",
-                        height: 400,
-                      ),
-                    ),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     print("tap");
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => GamePlay1(),
+                //       ),
+                //     );
+                //   },
+                //   child: Container(
+                //     child: ClipRRect(
+                //       borderRadius: BorderRadius.circular(60.0),
+                //       child: Image.asset(
+                //         "assets/images/game1.jpg",
+                //         height: 400,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 InkWell(
                   onTap: () {
                     print("tap");

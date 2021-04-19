@@ -19,12 +19,13 @@ class _CameraDownloadState extends State<CameraDownload> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
+        // extendBodyBehindAppBar: true,
         // appBar: AppBar(
         //   backgroundColor: Colors.transparent.withOpacity(0.1),
         // ),
         body: Container(
-          color: Color(0xFF0E3139),
+          decoration: BoxDecoration(color: Color(0xFF272C35)),
+          // color: Color(0xFF0E3139),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

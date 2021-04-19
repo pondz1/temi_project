@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //   title: Text(widget.title),
       // ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFF0E3139)),
+        decoration: BoxDecoration(color: Color(0xFF272C35)),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -87,7 +87,7 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        color: Colors.white,
+        decoration: BoxDecoration(color: Color(0xFF272C35)),
         height: double.maxFinite,
         child: new Stack(
           //alignment:new Alignment(x, y)

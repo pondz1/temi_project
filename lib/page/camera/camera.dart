@@ -111,7 +111,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Container(
-            decoration: BoxDecoration(color: Color(0xFF0E3139)),
+            // decoration: BoxDecoration(color: Color(0xFF0E3139)),
+            decoration: BoxDecoration(color: Color(0xFF272C35)),
             child: Column(
               children: [
                 Padding(

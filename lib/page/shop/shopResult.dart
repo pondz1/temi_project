@@ -26,52 +26,60 @@ class _ShopShopResultState extends State<ShopResult> {
       //   backgroundColor: Colors.transparent.withOpacity(0.1),
       // ),
       body: Container(
-        color: Color(0xFF0E3139),
+        decoration: BoxDecoration(color: Color(0xFF272C35)),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 40.0, left: 20),
+              padding: const EdgeInsets.only(top : 40.0),
               child: Row(
                 children: [
-                  IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      iconSize: 40,
-                      color: Colors.white,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      })
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            icon: Icon(Icons.arrow_back),
+                            iconSize: 40,
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            })
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Container(
+                      height: 60.0,
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Colors.white,
+                        border: Border.all(
+                          width: 1.0,
+                          color: const Color(0xFF707070),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "  ผลการค้นหา : ${widget.value}",
+                            style: GoogleFonts.kanit(
+                              fontSize: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 40.0, left: 60, right: 60),
-              child: Container(
-                height: 60.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  color: Colors.white,
-                  border: Border.all(
-                    width: 1.0,
-                    color: const Color(0xFF707070),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "  Result: ${widget.value}",
-                      style: GoogleFonts.kanit(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
             Container(
-              margin: const EdgeInsets.only(top: 100),
+              margin: const EdgeInsets.only(top: 180),
               height: 280.0,
               child: StreamBuilder<List<Goods>>(
                 stream: DatabaseService().getGoodsByName(widget.value),

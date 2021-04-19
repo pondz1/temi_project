@@ -46,7 +46,7 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
     var _height = MediaQuery.of(context).size.height - 225;
     return Scaffold(
       body: Container(
-        color: Color(0xFF0E3139),
+        decoration: BoxDecoration(color: Color(0xFF272C35)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

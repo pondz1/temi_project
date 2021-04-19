@@ -9,7 +9,7 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0E3139),
+      backgroundColor: const Color(0xFF272C35),
       body: Align(
         alignment: Alignment(0.0, 0.26),
         child: SizedBox(

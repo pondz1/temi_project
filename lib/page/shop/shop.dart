@@ -23,7 +23,7 @@ class _ShopState extends State<Shop> {
       //   backgroundColor: Colors.transparent.withOpacity(0.1),
       // ),
       body: Container(
-        color: Color(0xFF0E3139),
+        decoration: BoxDecoration(color: Color(0xFF272C35)),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,

@@ -91,7 +91,6 @@ class _ShopShopResultState extends State<ShopResult> {
                         scrollDirection: Axis.horizontal,
                         itemCount: goods.length,
                         itemBuilder: (context, index) {
-                          print(goods.length);
                           int price = (goods[index].price != null &&
                                   goods[index].price != 0
                               ? goods[index].price

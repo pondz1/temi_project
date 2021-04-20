@@ -1,4 +1,5 @@
 import 'package:firebase_image/firebase_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter_temi_project/myColors.dart';
@@ -70,7 +71,10 @@ class _ShopState extends State<Shop> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   //suffixIcon: Icon(Icons.search,color: AppColors.primary,),
-                  prefixIcon: Icon(Icons.search,color: AppColors.primary,),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: AppColors.primary,
+                  ),
                   fillColor: AppColors.background,
                   filled: true,
                 ),
@@ -78,7 +82,7 @@ class _ShopState extends State<Shop> {
                 onSubmitted: (value) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    CupertinoPageRoute(
                         builder: (context) => ShopResult(
                               value: value,
                             )),

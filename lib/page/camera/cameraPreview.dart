@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bordered_text/bordered_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/page/camera/cameraDownload.dart';
 import 'package:flutter_temi_project/service/database.dart';
@@ -10,14 +11,16 @@ import 'package:image/image.dart' as Img;
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:screenshot/screenshot.dart';
 
-final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
+final RoundedLoadingButtonController _btnController =
+    new RoundedLoadingButtonController();
 
 class CameraPreviewImage extends StatefulWidget {
   final String imagePath;
   final String imageName;
   final String word;
 
-  CameraPreviewImage({Key key, this.imagePath, this.imageName, this.word}) : super(key: key);
+  CameraPreviewImage({Key key, this.imagePath, this.imageName, this.word})
+      : super(key: key);
 
   @override
   _CameraPreviewState createState() => _CameraPreviewState();
@@ -78,9 +81,9 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.only(top: _height/1.5),
-                      child:Container(
-                        width: _height+100,
+                      padding: EdgeInsets.only(top: _height / 1.5),
+                      child: Container(
+                        width: _height + 100,
                         // height: _height,
                         child: Wrap(
                           alignment: WrapAlignment.end,
@@ -103,8 +106,7 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
                             ),
                           ],
                         ),
-                      )
-                  ),
+                      )),
                 ],
               ),
             ),
@@ -141,10 +143,11 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
                       .capture(delay: Duration(milliseconds: 10), pixelRatio: 1)
                       .then((Uint8List image) async {
                     await DatabaseService().uploadFile(image, widget.imageName);
-                    var url = await DatabaseService().downloadURL(widget.imageName);
+                    var url =
+                        await DatabaseService().downloadURL(widget.imageName);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      CupertinoPageRoute(
                         builder: (context) => CameraDownload(
                           imageURL: url,
                         ),

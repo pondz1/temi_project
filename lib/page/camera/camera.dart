@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:bordered_text/bordered_text.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/model/Word.dart';
 import 'package:flutter_temi_project/myColors.dart';
@@ -32,7 +33,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   Timer _timer;
   double _height = 650;
   int _wordsCount = 0;
-  List<bool> _selected ;
+  List<bool> _selected;
 
   _onSelfie() {
     int _start = 4;
@@ -46,9 +47,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             final image = await _controller.takePicture();
             Navigator.push(
                 context,
-                MaterialPageRoute(
+                CupertinoPageRoute(
                   builder: (context) => CameraPreviewImage(
-                      imagePath: image.path, imageName: image.name, word: wordText),
+                      imagePath: image.path,
+                      imageName: image.name,
+                      word: wordText),
                 )).then((value) => {
                   setState(() {
                     countText = "";
@@ -69,13 +72,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   _onChangeWord(String text, int index) {
     for (int i = 0; i < _wordsCount; i++) {
-
-      if(i == index){
+      if (i == index) {
         _selected[i] = true;
       } else {
         _selected[i] = false;
       }
-
     }
     setState(() {
       if (text == 'None') {
@@ -147,15 +148,22 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(8.0),
-                                        topLeft: Radius.circular(8.0),
+                                      bottomLeft: Radius.circular(8.0),
+                                      topLeft: Radius.circular(8.0),
                                     ),
-                                    color: _selected[index] ? AppColors.primary : Colors.black12,
+                                    color: _selected[index]
+                                        ? AppColors.primary
+                                        : Colors.black12,
                                   ),
                                   child: ListTile(
-                                    title: Text(words[index].text, style: GoogleFonts.kanit(
-                                      color: _selected[index] ? Colors.white : Colors.black,
-                                    ),),
+                                    title: Text(
+                                      words[index].text,
+                                      style: GoogleFonts.kanit(
+                                        color: _selected[index]
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
                                     onTap: () {
                                       _onChangeWord(words[index].text, index);
                                     },
@@ -169,7 +177,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                       height: _height,
                       // width: 1200,
                       child: Padding(
-                          padding: const EdgeInsets.only(right: 25.0, bottom: 1),
+                          padding:
+                              const EdgeInsets.only(right: 25.0, bottom: 1),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -220,7 +229,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                               style: GoogleFonts.kanit(
                                                 fontSize: 30,
                                                 decoration: TextDecoration.none,
-                                                decorationColor: AppColors.primary,
+                                                decorationColor:
+                                                    AppColors.primary,
                                                 color: Color(0xfffddd00),
                                               ),
                                               textAlign: TextAlign.center,
@@ -244,10 +254,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                 height: 60,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                   setState(() {
-                                     _selected = List.generate(_wordsCount, (i) => false);
-                                     wordText = '';
-                                   });
+                                    setState(() {
+                                      _selected = List.generate(
+                                          _wordsCount, (i) => false);
+                                      wordText = '';
+                                    });
                                   },
                                   child: Icon(
                                     Icons.refresh,
@@ -280,11 +291,12 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
-                          child: Container( height: 60,),
+                          child: Container(
+                            height: 60,
+                          ),
                         ),
                       ],
                     )
-
                   ],
                 ),
               ],
@@ -308,7 +320,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               if (snapshot.hasData) {
                 List<Word> words = snapshot.data;
                 _wordsCount = words.length;
-                if (_selected.length == 0){
+                if (_selected.length == 0) {
                   _selected = List.generate(_wordsCount, (i) => false);
                 }
                 // words.insert(0, Word(time: DateTime.now(), text: 'None',selected: true));

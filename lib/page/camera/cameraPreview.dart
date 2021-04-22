@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bordered_text/bordered_text.dart';
@@ -36,12 +35,6 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
     List<int> bytes = File(widget.imagePath).readAsBytesSync();
     _img = Img.decodeImage(bytes);
     _img = Img.flipHorizontal(_img);
-  }
-
-  void _doSomething() async {
-    Timer(Duration(seconds: 3), () {
-      _btnController.success();
-    });
   }
 
   @override

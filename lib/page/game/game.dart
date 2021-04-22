@@ -2,7 +2,6 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/myColors.dart';
-import 'package:flutter_temi_project/page/game/gamePlay1.dart';
 import 'package:flutter_temi_project/page/game/spotTheDifference/spotTheDifference.dart';
 
 class Game extends StatefulWidget {

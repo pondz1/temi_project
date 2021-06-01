@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_temi_project/myColors.dart';
+import 'package:flutter_temi_project/page/game/spotTheDifference/spt_painter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class SpotTheDifference extends StatefulWidget {
@@ -17,30 +20,31 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
   Timer _timer;
   int _start = 0;
   int _stop = 60; // time play (sec)
-  int _err = 10; // ค่าตวามตลาดเคลื่อนของจุด
+  int _err = 30; // ค่าตวามตลาดเคลื่อนของจุด
   int _countCorrect = 0;
   int _countWrong = 0;
   int _numMaxCorrect = 7;
   int _numMaxWrong = 3;
 
   List<Offset> _pointL = [
-    Offset(456.3, 355.1),
-    Offset(211.9, 333.6),
-    Offset(407.3, 266.7),
-    Offset(269.4, 251.2),
-    Offset(263.4, 210.7),
-    Offset(203.9, 201.2),
-    Offset(342.8, 84.3)
+    Offset(455.1, 225.8),
+    Offset(351.8, 390.3),
+    Offset(275.9, 380.3),
+    Offset(358.5, 443.6),
+    Offset(543.7, 463.6),
+    Offset(609.7, 582.2),
+    Offset(285.2, 557.5)
   ];
   List<Offset> _pointR = [
-    Offset(843.1, 354.6),
-    Offset(598.2, 334.6),
-    Offset(793.6, 266.7),
-    Offset(651.7, 250.7),
-    Offset(646.2, 209.7),
-    Offset(589.2, 202.7),
-    Offset(725.6, 83.3)
+    Offset(966.8, 225.8),
+    Offset(862.9, 389.7),
+    Offset(787.6, 380.3),
+    Offset(870.9, 444.3),
+    Offset(1056.1, 464.3),
+    Offset(1122.1, 580.2),
+    Offset(796.9, 555.5)
   ];
+  List<Offset> _pointCorrect = [];
 
   @override
   void initState() {
@@ -65,6 +69,11 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
           setState(() {
             timer.cancel();
             print("หมดเวลา...");
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) => _buildPopupDialog(context),
+            );
           });
         } else {
           setState(() {
@@ -80,13 +89,16 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        title: Text("\t Correct : " +
-            _countCorrect.toString() +
-            "\t Wrong : " +
-            _countWrong.toString()),
-      ),
+      // appBar: AppBar(
+      //     backgroundColor: AppColors.background,
+      //     // title: Text("\t Correct : " +
+      //     //     _countCorrect.toString() +
+      //     //     "\t Wrong : " +
+      //     //     _countWrong.toString()),
+      //     title: Padding(
+      //       padding: const EdgeInsets.only(right: 60),
+      //       child: _buildLife()
+      //     )),
       backgroundColor: Colors.white,
       body: Container(
         decoration: BoxDecoration(color: AppColors.background),
@@ -94,6 +106,50 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
         child: new Stack(
           //alignment:new Alignment(x, y)
           children: <Widget>[
+            new Positioned(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 80, top: 30),
+                child: new Align(
+                  alignment: FractionalOffset.topRight,
+                  child: _buildLife(),
+                ),
+              ),
+            ),
+            new Positioned(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: new Align(
+                  alignment: FractionalOffset.topCenter,
+                  child: Text("เกมจับผิดภาพ",
+                      style: GoogleFonts.kanit(
+                        fontSize: 25.0,
+                        color: AppColors.primary,
+                      )),
+                ),
+              ),
+            ),
+            new Positioned(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 55, left: 90),
+                child: new Align(
+                  alignment: FractionalOffset.topLeft,
+                  child: InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            _buildPopupDialogBack(context),
+                      );
+                    },
+                    child: Text("ยอมแพ้",
+                        style: GoogleFonts.kanit(
+                          fontSize: 20.0,
+                          color: AppColors.primary,
+                        )),
+                  ),
+                ),
+              ),
+            ),
             // new Positioned(
             //   child: new Align(
             //       alignment: FractionalOffset.topLeft,
@@ -118,8 +174,7 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
                 alignment: FractionalOffset.center,
                 child: GestureDetector(
                   onTapUp: (TapUpDetails details) => _onTapUp(details),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Stack(
                     children: [
                       Image.network(
                         "https://i.insider.com/5ef364faaee6a85506725c35?width=1000&format=jpeg&auto=webp",
@@ -148,9 +203,14 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
                         width: MediaQuery.of(context).size.width - 220,
                         lineHeight: 50.0,
                         percent: _start / _stop,
-                        center: Text("เหลือเวลาอีก " +
-                            (_stop - _start).toString() +
-                            " วินาที"),
+                        center: Text(
+                            "เหลือเวลาอีก " +
+                                (_stop - _start).toString() +
+                                " วินาที",
+                            style: GoogleFonts.kanit(
+                              fontSize: 23.0,
+                              color: Colors.white,
+                            )),
                         linearStrokeCap: LinearStrokeCap.roundAll,
                         progressColor: Colors.red,
                       ),
@@ -158,7 +218,16 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
                   ),
                 ),
               ),
-            )
+            ),
+            // CustomPaint(
+            //   painter: MyCirclePainter(offset: _pointL),
+            // ),
+            // CustomPaint(
+            //   painter: MyCirclePainter(offset: _pointR),
+            // ),
+            CustomPaint(
+              painter: MyCirclePainter(offset: _pointCorrect),
+            ),
           ],
         ),
       ),
@@ -166,22 +235,36 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
   }
 
   _onTapUp(TapUpDetails details) {
-    print(details.localPosition);
-    // _pointR.add(details.localPosition);
+    Offset offset = details.globalPosition;
+    print(offset);
+    // _pointR.add(offset);
     // print(_pointR);
-    if (_isPoint(details.localPosition)) {
+    if (_isPoint(offset)) {
       _countCorrect++;
       print("Correct " + _countCorrect.toString());
+      if (_countCorrect == _numMaxCorrect) {
+        print("Win");
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => _buildPopupDialog(context),
+        );
+      }
     } else {
       _countWrong++;
+      _numMaxWrong--;
+      print("heart " + _numMaxWrong.toString());
       print("Wrong " + _countWrong.toString());
+      if (_numMaxWrong == 0) {
+        print("Lose");
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => _buildPopupDialog(context),
+        );
+      }
     }
-    if (_countCorrect == _numMaxCorrect) {
-      print("Win");
-    }
-    if (_countWrong == _numMaxWrong) {
-      print("Lose");
-    }
+
     setState(() {});
   }
 
@@ -199,10 +282,205 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
               disL.dy < _err &&
               disL.dy > _err * (-1)) {
         result = true;
+        _pointCorrect.add(_pointR[i]);
+        _pointCorrect.add(_pointL[i]);
         _pointR.removeAt(i);
         _pointL.removeAt(i);
       }
     }
     return result;
+  }
+
+  Widget _buildLife() {
+    if (_numMaxWrong == 3) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // Icon(
+          //   Icons.favorite,
+          //   size: 40,
+          // ),
+          // Icon(
+          //   Icons.favorite,
+          //   size: 40,
+          // ),
+          // Icon(
+          //   Icons.favorite,
+          //   size: 40,
+          // )
+          Image.asset(
+            "assets/gif/source.gif",
+            height: 70,
+            width: 70,
+          ),
+          Image.asset(
+            "assets/gif/source.gif",
+            height: 70,
+            width: 70,
+          ),
+          Image.asset(
+            "assets/gif/source.gif",
+            height: 70,
+            width: 70,
+          ),
+        ],
+      );
+    }
+    if (_numMaxWrong == 2) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Image.asset(
+            "assets/gif/source.gif",
+            height: 70,
+            width: 70,
+          ),
+          Image.asset(
+            "assets/gif/source.gif",
+            height: 70,
+            width: 70,
+          ),
+        ],
+      );
+    }
+    if (_numMaxWrong == 1) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Image.asset(
+            "assets/gif/source.gif",
+            height: 70,
+            width: 70,
+          ),
+        ],
+      );
+    }
+    return Row();
+  }
+
+  Widget _buildPopupDialog(BuildContext context) {
+    _timer.cancel();
+    return new AlertDialog(
+      title: _countCorrect == _numMaxCorrect
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/gif/win.gif",
+                  height: 70,
+                  width: 70,
+                ),
+                Container(
+                  width: 20,
+                ),
+                Text('ยินดีด้วยคุณชนะ',
+                    style: GoogleFonts.kanit(
+                      fontSize: 25.0,
+                      color: AppColors.primary,
+                    )),
+                Container(
+                  width: 20,
+                ),
+                Image.asset(
+                  "assets/gif/win.gif",
+                  height: 70,
+                  width: 70,
+                )
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/gif/lose.gif",
+                  height: 70,
+                  width: 70,
+                ),
+                Container(
+                  width: 20,
+                ),
+                Text('เสียใจด้วยนะ',
+                    style: GoogleFonts.kanit(
+                      fontSize: 25.0,
+                      color: AppColors.primary,
+                    )),
+                Container(
+                  width: 20,
+                ),
+                Image.asset(
+                  "assets/gif/lose.gif",
+                  height: 70,
+                  width: 70,
+                )
+              ],
+            ),
+      content: _countCorrect == _numMaxCorrect
+          ? new Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/images/qr.png",
+                  height: 300,
+                  width: 300,
+                ),
+                Text('แสกนเพื่อรับรางวัล'),
+              ],
+            )
+          : new Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[Text('T_T')],
+            ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          },
+          textColor: Colors.black54,
+          child: const Text('กลับสู่หน้าหลัก'),
+        ),
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => SpotTheDifference(),
+              ),
+            );
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('เกมถัดไป'),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPopupDialogBack(BuildContext context) {
+    return new AlertDialog(
+      title: Text("คุณมั่นใจไหมที่จะยอมแพ้?"),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('ยอมแพ้'),
+        ),
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Colors.black54,
+          child: const Text('ยกเลิก'),
+        ),
+      ],
+    );
   }
 }

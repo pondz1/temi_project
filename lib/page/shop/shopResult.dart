@@ -181,6 +181,7 @@ class _ShopShopResultState extends State<ShopResult> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
+              padding: EdgeInsets.symmetric(vertical: 8),
               height: 150,
               child: Image(
                 image:

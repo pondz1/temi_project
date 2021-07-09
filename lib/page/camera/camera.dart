@@ -10,6 +10,8 @@ import 'package:flutter_temi_project/myColors.dart';
 import 'package:flutter_temi_project/page/camera/cameraPreview.dart';
 import 'package:flutter_temi_project/service/database.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ndialog/ndialog.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
@@ -43,23 +45,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       oneSec,
       (Timer timer) {
         if (_start == 0) {
-          setState(() async {
-            final image = await _controller.takePicture();
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => CameraPreviewImage(
-                      imagePath: image.path,
-                      imageName: image.name,
-                      word: wordText),
-                )).then((value) => {
-                  setState(() {
-                    countText = "";
-                    _isTake = false;
-                  })
-                });
-            timer.cancel();
-          });
+          // setState(() async {
+          _takePicture();
+          timer.cancel();
+          // });
         } else {
           setState(() {
             _start--;
@@ -68,6 +57,21 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         }
       },
     );
+  }
+
+  _takePicture() async {
+    final image = await _controller.takePicture();
+    Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (context) =>
+              CameraPreviewImage(imagePath: image.path, imageName: image.name, word: wordText),
+        )).then((value) => {
+          setState(() {
+            countText = "";
+            _isTake = false;
+          })
+        });
   }
 
   _onChangeWord(String text, int index) {
@@ -134,51 +138,49 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 180,
-                      height: _height - 50,
-                      child: ListView.builder(
-                          itemCount: words.length,
-                          itemBuilder: (context, index) {
-                            if (_isTake) {
-                              return null;
-                            } else {
-                              return Padding(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(8.0),
-                                      topLeft: Radius.circular(8.0),
-                                    ),
-                                    color: _selected[index]
-                                        ? AppColors.primary
-                                        : Colors.black12,
-                                  ),
-                                  child: ListTile(
-                                    title: Text(
-                                      words[index].text,
-                                      style: GoogleFonts.kanit(
-                                        color: _selected[index]
-                                            ? Colors.white
-                                            : Colors.black,
+                    !_isTake
+                        ? Container(
+                            width: 180,
+                            height: _height - 50,
+                            child: ListView.builder(
+                                itemCount: words.length,
+                                itemBuilder: (context, index) {
+                                  if (_isTake) {
+                                    return null;
+                                  } else {
+                                    return Padding(
+                                      padding: EdgeInsets.only(top: 10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(8.0),
+                                            topLeft: Radius.circular(8.0),
+                                          ),
+                                          color:
+                                              _selected[index] ? AppColors.primary : Colors.black12,
+                                        ),
+                                        child: ListTile(
+                                          title: Text(
+                                            words[index].text,
+                                            style: GoogleFonts.kanit(
+                                              color: _selected[index] ? Colors.white : Colors.black,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            _onChangeWord(words[index].text, index);
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                    onTap: () {
-                                      _onChangeWord(words[index].text, index);
-                                    },
-                                  ),
-                                ),
-                              );
-                            }
-                          }),
-                    ),
+                                    );
+                                  }
+                                }),
+                          )
+                        : Container(),
                     Container(
                       height: _height,
                       // width: 1200,
                       child: Padding(
-                          padding:
-                              const EdgeInsets.only(right: 25.0, bottom: 1),
+                          padding: const EdgeInsets.only(right: 25.0, bottom: 1),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -229,8 +231,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                               style: GoogleFonts.kanit(
                                                 fontSize: 30,
                                                 decoration: TextDecoration.none,
-                                                decorationColor:
-                                                    AppColors.primary,
+                                                decorationColor: AppColors.primary,
                                                 color: Color(0xfffddd00),
                                               ),
                                               textAlign: TextAlign.center,
@@ -243,60 +244,124 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                             ],
                           )),
                     ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: SizedBox(
-                                // width: 50,
-                                height: 60,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _selected = List.generate(
-                                          _wordsCount, (i) => false);
-                                      wordText = '';
-                                    });
-                                  },
-                                  child: Icon(
-                                    Icons.refresh,
-                                    size: 40,
-                                  ),
-                                )),
-                          ),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(120),
-                          child: SizedBox(
-                              width: 130,
-                              height: 130,
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  try {
-                                    await _initializeControllerFuture;
-                                    if (!_isTake) {
-                                      _onSelfie();
-                                    }
-                                  } catch (e) {
-                                    print(e);
-                                  }
-                                },
-                                child: Icon(
-                                  Icons.camera,
-                                  size: 100,
+                    !_isTake
+                        ? Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: SizedBox(
+                                      // width: 50,
+                                      height: 60,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _selected = List.generate(_wordsCount, (i) => false);
+                                            wordText = '';
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.refresh,
+                                          size: 40,
+                                        ),
+                                      )),
                                 ),
-                              )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Container(
-                            height: 60,
-                          ),
-                        ),
-                      ],
-                    )
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(120),
+                                child: SizedBox(
+                                    width: 130,
+                                    height: 130,
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        try {
+                                          await _initializeControllerFuture;
+                                          if (!_isTake) {
+                                            _onSelfie();
+                                          }
+                                        } catch (e) {
+                                          print(e);
+                                        }
+                                      },
+                                      child: Icon(
+                                        Icons.camera,
+                                        size: 100,
+                                      ),
+                                    )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: SizedBox(
+                                      // width: 50,
+                                      height: 60,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          showDialog<void>(
+                                            context: context,
+                                            barrierDismissible: false, // user must tap button!
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                  "เพิ่มข้อความ",
+                                                  style: GoogleFonts.kanit(fontSize: 25),
+                                                ),
+                                                content: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 8),
+                                                      child: Text('สแกนเพื่อไปยังหน้าเพิ่มข้อความ', style: GoogleFonts.kanit(),),
+                                                    ),
+                                                    Container(
+                                                      height: 300.0, // Change as per your requirement
+                                                      width: 300.0,
+                                                      child: QrImage(
+                                                        data: 'https://temi-668a9.web.app/camera',
+                                                        version: QrVersions.auto,
+                                                        gapless: false,
+                                                        backgroundColor: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: Text('ปิด',style: GoogleFonts.kanit(),),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                          //
+                                          // Container(
+                                          //   // height: 500,
+                                          //   child: Column(
+                                          //     // mainAxisSize: MainAxisSize.min,
+                                          //     children: [
+                                          //       Text(
+                                          //         '',
+                                          //         style: GoogleFonts.kanit(fontSize: 20),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
+                                        },
+                                        child: Icon(
+                                          Icons.add_box_outlined,
+                                          size: 40,
+                                        ),
+                                      )),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container()
                   ],
                 ),
               ],
@@ -320,7 +385,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               if (snapshot.hasData) {
                 List<Word> words = snapshot.data;
                 _wordsCount = words.length;
-                if (_selected.length == 0) {
+                if (_selected.length == 0 || _selected.length != _wordsCount) {
                   _selected = List.generate(_wordsCount, (i) => false);
                 }
                 // words.insert(0, Word(time: DateTime.now(), text: 'None',selected: true));

@@ -10,6 +10,8 @@ import 'package:image/image.dart' as Img;
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../myColors.dart';
+
 final RoundedLoadingButtonController _btnController =
     new RoundedLoadingButtonController();
 
@@ -42,7 +44,7 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
     var _height = MediaQuery.of(context).size.height - 225;
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFF272C35)),
+        decoration: BoxDecoration(color: AppColors.background,),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -53,7 +55,7 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
                   IconButton(
                       icon: Icon(Icons.arrow_back),
                       iconSize: 40,
-                      color: Colors.white,
+                      color: AppColors.primary,
                       onPressed: () {
                         Navigator.pop(context);
                       })
@@ -106,27 +108,18 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: RoundedLoadingButton(
-                color: Color(0xFFBE3F55),
+                color: AppColors.primary,
                 height: 80,
                 width: 80,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: BorderedText(
-                    strokeWidth: 1,
-                    strokeColor: Colors.black,
-                    // strokeCap: StrokeCap.butt,
-                    // strokeJoin: StrokeJoin.miter,
-                    child: Text(
-                      'download picture',
-                      style: TextStyle(
-                        fontFamily: 'JasmineUPC',
-                        fontSize: 40.0,
-                        color: Colors.black,
-                        letterSpacing: 6,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
+                  child: Text(
+                    'ดาวน์โหลด',
+                    style: GoogleFonts.kanit(
+                      color: Colors.white,
+                      fontSize: 36,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 controller: _btnController,

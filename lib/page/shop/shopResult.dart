@@ -8,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:ndialog/ndialog.dart';
 
+import '../../myColors.dart';
+
 class ShopResult extends StatefulWidget {
   final value;
 
@@ -26,7 +28,7 @@ class _ShopShopResultState extends State<ShopResult> {
       //   backgroundColor: Colors.transparent.withOpacity(0.1),
       // ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xFF272C35)),
+        decoration: BoxDecoration(color: AppColors.background,),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +44,7 @@ class _ShopShopResultState extends State<ShopResult> {
                         IconButton(
                             icon: Icon(Icons.arrow_back),
                             iconSize: 40,
-                            color: Colors.white,
+                            color: AppColors.primary,
                             onPressed: () {
                               Navigator.pop(context);
                             })
@@ -171,11 +173,11 @@ class _ShopShopResultState extends State<ShopResult> {
         // height: 250.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          border: Border.all(
-            width: 1.0,
-            color: const Color(0xFF707070),
-          ),
+          color: Colors.grey.shade200,
+          // border: Border.all(
+          //   width: 1.0,
+          //   color: const Color(0xFF707070),
+          // ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

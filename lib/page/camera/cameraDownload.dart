@@ -1,6 +1,9 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
+import '../../myColors.dart';
 
 class CameraDownload extends StatefulWidget {
   final String imageURL;
@@ -24,7 +27,7 @@ class _CameraDownloadState extends State<CameraDownload> {
         //   backgroundColor: Colors.transparent.withOpacity(0.1),
         // ),
         body: Container(
-          decoration: BoxDecoration(color: Color(0xFF272C35)),
+          decoration: BoxDecoration(color: AppColors.background,),
           // color: Color(0xFF0E3139),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,12 +73,9 @@ class _CameraDownloadState extends State<CameraDownload> {
                       strokeJoin: StrokeJoin.miter,
                       child: Text(
                         'แสกน QR Code เพื่อดาวน์โหลดรูปภาพ\nไปยังมือถือของท่าน',
-                        style: TextStyle(
-                          fontFamily: 'JasmineUPC',
-                          fontSize: 25.0,
+                        style: GoogleFonts.kanit(
+                          fontSize: 30.0,
                           color: Colors.black.withOpacity(0.7),
-                          letterSpacing: 6,
-                          fontWeight: FontWeight.w700,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -95,8 +95,8 @@ class _CameraDownloadState extends State<CameraDownload> {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            "OK",
-                            style: TextStyle(fontSize: 50),
+                            "ปิด",
+                            style: GoogleFonts.kanit(fontSize: 50),
                           ),
                         ),
                       ),

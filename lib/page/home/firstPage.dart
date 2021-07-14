@@ -1,6 +1,7 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_temi_project/myColors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'home.dart';
 
@@ -11,7 +12,7 @@ class FirstPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: const Color(0xFF272C35),
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.white,
       body: Align(
         alignment: Alignment(0.0, 0.26),
         child: SizedBox(
@@ -19,7 +20,6 @@ class FirstPage extends StatelessWidget {
           height: 1080.0,
           child: Column(
             children: <Widget>[
-
               Spacer(flex: 302),
               BorderedText(
                 strokeWidth: 1,
@@ -73,10 +73,9 @@ class FirstPage extends StatelessWidget {
                     strokeJoin: StrokeJoin.miter,
                     child: Text(
                       'คลิกที่นี่',
-                      style: TextStyle(
-                        fontFamily: 'JasmineUPC',
+                      style: GoogleFonts.kanit(
                         fontSize: 60.0,
-                        color: AppColors.background,
+                        color: Colors.white,
                         letterSpacing: 6,
                         fontWeight: FontWeight.w700,
                       ),

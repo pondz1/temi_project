@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bordered_text/bordered_text.dart';
@@ -24,12 +25,39 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   CameraDescription cameraDescription;
   double size;
+
+  Timer _timer;
+
+  _onIgnore(context) {
+    int _start = 11;
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          // setState(() async {
+          Navigator.pop(context);
+          timer.cancel();
+          // });
+        } else {
+          // setState(() {
+            _start--;
+            print('$_start');
+          // });
+        }
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     initCamera();
     size = 300.0;
+    _onIgnore(context);
   }
+
+
 
   initCamera() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +66,14 @@ class _MyHomePageState extends State<MyHomePage> {
     cameraDescription = cameras.last;
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    if (_timer != null) {
+      _timer.cancel();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +131,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(fontSize: 25),
                         ),
                         onPressed: () {
+                          if (_timer != null) {
+                            _timer.cancel();
+                          }
                           Navigator.push(
                               context,
                               CupertinoPageRoute(
@@ -103,7 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                       // CameraApp(),
                                       TakePictureScreen(
                                         camera: cameraDescription,
-                                      )));
+                                      ))).then((value) => {
+                            _onIgnore(context)
+                          });
                         },
                       ),
                     ),
@@ -123,8 +164,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(fontSize: 25),
                         ),
                         onPressed: () {
+                          if (_timer != null) {
+                            _timer.cancel();
+                          }
                           Navigator.push(context,
-                              CupertinoPageRoute(builder: (context) => Game()));
+                              CupertinoPageRoute(builder: (context) => Game())).then((value) => {
+                            _onIgnore(context)
+                          });
                         },
                       ),
                     ),
@@ -144,8 +190,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: TextStyle(fontSize: 25),
                         ),
                         onPressed: () {
+                          if (_timer != null) {
+                            _timer.cancel();
+                          }
                           Navigator.push(context,
-                              CupertinoPageRoute(builder: (context) => Shop()));
+                              CupertinoPageRoute(builder: (context) => Shop())).then((value) => {
+                                _onIgnore(context)
+                          });
                         },
                       ),
                     ),

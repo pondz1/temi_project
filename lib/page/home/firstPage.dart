@@ -2,6 +2,7 @@
 
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_temi_project/myColors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +16,11 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

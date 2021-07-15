@@ -7,6 +7,7 @@ import 'package:flutter_temi_project/myColors.dart';
 import 'package:flutter_temi_project/page/game/spotTheDifference/spt_painter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'setting.dart' as setting;
 
 class SpotTheDifference extends StatefulWidget {
   @override
@@ -25,6 +26,7 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
   int _countWrong = 0;
   int _numMaxCorrect = 7;
   int _numMaxWrong = 3;
+  var imageLink = "https://i.insider.com/5ef364faaee6a85506725c35?width=1000&format=jpeg&auto=webp";
 
   List<Offset> _pointL = [
     Offset(455.1, 225.8),
@@ -50,6 +52,60 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
   void initState() {
     super.initState();
     startTimer();
+    selectGame();
+  }
+
+  void selectGame(){
+    if(setting.number == 1){
+      _pointL = [
+        Offset(455.1, 225.8),
+        Offset(351.8, 390.3),
+        Offset(275.9, 380.3),
+        Offset(358.5, 443.6),
+        Offset(543.7, 463.6),
+        Offset(609.7, 582.2),
+        Offset(285.2, 557.5)
+      ];
+      _pointR = [
+        Offset(966.8, 225.8),
+        Offset(862.9, 389.7),
+        Offset(787.6, 380.3),
+        Offset(870.9, 444.3),
+        Offset(1056.1, 464.3),
+        Offset(1122.1, 580.2),
+        Offset(796.9, 555.5)
+      ];
+    }
+    else if(setting.number == 2){
+      _numMaxCorrect = 11;
+      imageLink = "https://imgs.heart.co.uk/images/215607?crop=16_9&width=660&relax=1&signature=kMKOiuaa2OmxY-o0Z2D1XkqvsTM=";
+      _pointL = [
+        Offset(439.3, 229.3),
+        Offset(622.6, 236.0),
+        Offset(398.6, 277.3),
+        Offset(444.0, 290.6),
+        Offset(356.0, 312.0),
+        Offset(519.3, 342.0),
+        Offset(520.0, 379.3),
+        Offset(380.0, 457.3),
+        Offset(402.6, 501.3),
+        Offset(564.6, 534.0),
+        Offset(465.3, 569.3)
+      ];
+      _pointR = [
+        Offset(779.3, 224.7),
+        Offset(955.3, 236.0),
+        Offset(736.0, 276.6),
+        Offset(778.0, 295.3),
+        Offset(688.6, 312.0),
+        Offset(856.6, 343.3),
+        Offset(854.6, 377.3),
+        Offset(712.6, 458.0),
+        Offset(741.3, 502.6),
+        Offset(893.3, 534.6),
+        Offset(802.0, 562.0)
+      ];
+    }
   }
 
   @override
@@ -177,7 +233,7 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
                   child: Stack(
                     children: [
                       Image.network(
-                        "https://i.insider.com/5ef364faaee6a85506725c35?width=1000&format=jpeg&auto=webp",
+                        imageLink,
                         height: MediaQuery.of(context).size.height - 200,
                       ),
                     ],
@@ -271,8 +327,8 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
   bool _isPoint(Offset tapPoint) {
     bool result = false;
     for (int i = 0; i < _pointR.length; i++) {
-      var disR = _pointR[i] - tapPoint;
-      var disL = _pointL[i] - tapPoint;
+      var disR = _pointR[i] - tapPoint + Offset(0,16);
+      var disL = _pointL[i] - tapPoint + Offset(0,16);
       if (disR.dx < _err &&
               disR.dx > _err * (-1) &&
               disR.dy < _err &&
@@ -445,6 +501,10 @@ class _SpotTheDifferenceState extends State<SpotTheDifference> {
         ),
         new FlatButton(
           onPressed: () {
+            setting.number++;
+            if(setting.number > setting.max){
+              setting.number = 1;
+            }
             Navigator.of(context).pop();
             Navigator.of(context).pop();
             Navigator.push(

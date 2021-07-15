@@ -20,7 +20,7 @@ class MyCirclePainter extends CustomPainter {
       for(int i=0;i< offset.length;i++){
         // draw shadow first
         Path oval = Path()
-          ..addOval(Rect.fromCircle(center: offset[i], radius: radius));
+          ..addOval(Rect.fromCircle(center: offset[i]+Offset(0,16), radius: radius));
         //canvas.drawPath(oval, shadowPaint);
         canvas.drawShadow(oval, const Color(0xFF45FC02), 2.0, true);
         // draw circle
@@ -28,7 +28,7 @@ class MyCirclePainter extends CustomPainter {
           ..color = const Color(0xFF45FC02)
           ..style = PaintingStyle.stroke
           ..strokeWidth = 4;
-        canvas.drawCircle(offset[i], radius, thumbPaint);
+        canvas.drawCircle(offset[i]+Offset(0,16), radius, thumbPaint);
       }
     }
   }

@@ -22,7 +22,7 @@ class _GameState extends State<Game> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 40.0, left: 20),
+              padding: const EdgeInsets.only(top: 60.0, left: 20),
               child: Row(
                 children: [
                   IconButton(

@@ -63,7 +63,7 @@ class _FirstPageState extends State<FirstPage> {
                       ),
                     );
                   },
-                  child: Image.asset('assets/gif/eye2.gif'),
+                  child: Image.asset('assets/gif/eye2.gif',scale: 0.65,),
 
 
                   // Container(

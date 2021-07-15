@@ -189,14 +189,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                 children: [
                                   RotatedBox(
                                     quarterTurns: 0,
-                                    child: Transform(
-                                      alignment: Alignment.center,
-                                      transform: Matrix4.rotationY(math.pi),
-                                      child: Center(
-                                        child: AspectRatio(
-                                          aspectRatio: 4.0 / 3.0,
-                                          child: CameraPreview(_controller),
-                                        ),
+                                    child: Center(
+                                      child: AspectRatio(
+                                        aspectRatio: 4.0 / 3.0,
+                                        child: CameraPreview(_controller),
                                       ),
                                     ),
                                   ),

@@ -28,30 +28,30 @@ class _FirstPageState extends State<FirstPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                BorderedText(
-                  strokeWidth: 1,
-                  strokeColor: const Color(0xFF131C53),
-                  strokeCap: StrokeCap.butt,
-                  strokeJoin: StrokeJoin.miter,
-                  child: Text(
-                    'Temi Funny',
-                    style: TextStyle(
-                      fontFamily: 'JasmineUPC',
-                      fontSize: 60.0,
-                      color: AppColors.primary,
-                      letterSpacing: 25,
-                      fontWeight: FontWeight.w700,
-                      shadows: [
-                        Shadow(
-                          color: const Color(0xFF5C1818).withOpacity(0.16),
-                          offset: Offset(0, 3.0),
-                          blurRadius: 6.0,
-                        ),
-                      ],
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                // BorderedText(
+                //   strokeWidth: 1,
+                //   strokeColor: const Color(0xFF131C53),
+                //   strokeCap: StrokeCap.butt,
+                //   strokeJoin: StrokeJoin.miter,
+                //   child: Text(
+                //     'Temi Funny',
+                //     style: TextStyle(
+                //       fontFamily: 'JasmineUPC',
+                //       fontSize: 60.0,
+                //       color: AppColors.primary,
+                //       letterSpacing: 25,
+                //       fontWeight: FontWeight.w700,
+                //       shadows: [
+                //         Shadow(
+                //           color: const Color(0xFF5C1818).withOpacity(0.16),
+                //           offset: Offset(0, 3.0),
+                //           blurRadius: 6.0,
+                //         ),
+                //       ],
+                //     ),
+                //     textAlign: TextAlign.center,
+                //   ),
+                // ),
                 // Image.asset('assets/gif/tenor.gif'),
                 InkWell(
                   onTap: () {

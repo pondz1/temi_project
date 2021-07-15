@@ -19,8 +19,8 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: const Color(0xFF272C35),
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFfbfbfb),
+      // backgroundColor: Colors.white,
       body: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +63,7 @@ class _FirstPageState extends State<FirstPage> {
                       ),
                     );
                   },
-                  child: Image.asset('assets/gif/tenor.gif'),
+                  child: Image.asset('assets/gif/eye2.gif'),
 
 
                   // Container(

@@ -49,7 +49,7 @@ class _CameraPreviewState extends State<CameraPreviewImage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 40.0, left: 20),
+              padding: const EdgeInsets.only(top: 50.0, left: 20),
               child: Row(
                 children: [
                   IconButton(

@@ -34,7 +34,7 @@ class _ShopShopResultState extends State<ShopResult> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 40.0),
+              padding: const EdgeInsets.only(top: 100.0),
               child: Row(
                 children: [
                   Padding(

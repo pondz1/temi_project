@@ -122,7 +122,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 40.0, left: 20),
+                  padding: const EdgeInsets.only(top: 70.0, left: 20),
                   child: Row(
                     children: [
                       IconButton(
@@ -188,13 +188,13 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                                 alignment: Alignment.center,
                                 children: [
                                   RotatedBox(
-                                    quarterTurns: 1,
+                                    quarterTurns: 0,
                                     child: Transform(
                                       alignment: Alignment.center,
                                       transform: Matrix4.rotationY(math.pi),
                                       child: Center(
                                         child: AspectRatio(
-                                          aspectRatio: 3.0 / 4.0,
+                                          aspectRatio: 4.0 / 3.0,
                                           child: CameraPreview(_controller),
                                         ),
                                       ),
